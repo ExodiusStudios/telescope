@@ -432,6 +432,7 @@ export default Vue.extend({
 	created() {
 		this.executeSearchDebounced = debounce(this.executeSearch, 500);
 
+		// Simulate the progress bar slowly incrementing
 		this.progressTask = setInterval(() => {
 			if(this.isWaiting) {
 				this.progress += Math.random() * 20;
