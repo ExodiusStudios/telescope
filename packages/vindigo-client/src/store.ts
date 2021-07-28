@@ -83,6 +83,8 @@ export class StoreService implements StoreNamespace<RootState> {
 
 	public readonly id = 'core';
 
+	// TODO This doesnt work at all?
+
 	private get core() {
 		return this.modules['core']!;
 	}

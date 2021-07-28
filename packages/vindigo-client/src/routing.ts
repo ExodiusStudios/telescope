@@ -1,5 +1,5 @@
 import VueRouter, { RouteConfig, RouterOptions } from "vue-router";
-import { getRouteMeta, logger, updateTitle } from "./util";
+import { clientReadyTask, getRouteMeta, logger, updateTitle } from "./util";
 
 import { Optional } from "./typings/types";
 import { isString } from "lodash";
@@ -75,14 +75,15 @@ export class RoutingService {
 		
 		const router = new VueRouter(this.options);
 		
-		router.beforeEach((to, _from, next) => {
+		router.beforeEach(async (_to, _from, next) => {
 			store.instance.commit('setWaiting', true);
+			await clientReadyTask;
 			next();
 		});
 
 		router.beforeResolve((to, _from, next) => {
 			store.instance.commit('setWaiting', false);
-			store.instance.commit('setLoaded', 'route');
+			store.instance.commit('setPageRendered');
 
 			const title = getRouteMeta(to, 'title');
 

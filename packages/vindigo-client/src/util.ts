@@ -1,10 +1,16 @@
 import { Dictionary, find, forEach, isObject } from "lodash";
 
+import { Deferred } from "./util/deferred";
 import { Route } from "vue-router";
 import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '../tailwind.config.js';
 
 // TODO Move everything to helpers.ts, maybe?
+
+/**
+ * The task which is completed once the client is ready
+ */
+export const clientReadyTask = new Deferred<void>();
 
 /**
  * Create a logger instance that prepends all messages

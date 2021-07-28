@@ -2,6 +2,7 @@ import { identity, values } from "lodash";
 
 import { MutationTree } from "vuex";
 import { RootState } from "./state";
+import { clientReadyTask } from "../../util";
 
 /**
  * Register store mutations
@@ -14,9 +15,17 @@ export const storeMutations: MutationTree<RootState> = {
 	setLoaded(state, scope: string) {
 		state.loading[scope] = true;
 
-		if(values(state.loading).every(identity)) {
+		if(values(state.loading).every(identity) && !state.isReady) {
 			state.isReady = true;
+			clientReadyTask.resolve();
 		}
+	},
+
+	/**
+	 * Sets whether the page has rendered
+	 */
+	setPageRendered(state) {
+		state.isRendered = true;
 	},
 
 	/**
@@ -32,7 +41,6 @@ export const storeMutations: MutationTree<RootState> = {
 	storeConfig(state, config) {
 		state.config = config;
 	},
-
 
 	/**
 	 * Store the current user profile

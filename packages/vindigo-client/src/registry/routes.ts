@@ -4,6 +4,7 @@ import ProjectHome from '../views/project/ProjectHome.vue';
 import ProjectPage from '../views/project/ProjectPage.vue';
 import SettingsPage from '../views/settings/Settings.vue';
 import TasksPage from '../views/project/tasks/TasksOverview.vue';
+import ExplorerPage from '../views/explorer/ExplorerPage.vue';
 import { routing } from "..";
 
 /**
@@ -17,6 +18,15 @@ export function registerRoutes() {
 		component: HomePage,
 		meta: {
 			title: ''
+		}
+	});
+
+	routing.defineRoute({
+		path: '/explorer',
+		name: 'Project Explorer',
+		component: ExplorerPage,
+		meta: {
+			title: 'Project Explorer'
 		}
 	});
 

@@ -20,6 +20,7 @@ export interface RootState {
 	isAuthed: boolean,
 	isReady: boolean,
 	isWaiting: boolean,
+	isRendered: boolean,
 	loading: Dictionary<boolean>,
 	config: ClientConfig
 }
@@ -41,10 +42,10 @@ export function registerState() {
 			isAuthed: false,
 			isReady: false,
 			isWaiting: false,
+			isRendered: false,
 			loading: {
 				auth: false,	// Authentication status
 				i18n: false,	// Language file download
-				route: false,	// beforeResolve called
 				config: false	// Config fetched
 			},
 			config: {

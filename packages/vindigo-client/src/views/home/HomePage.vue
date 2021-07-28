@@ -60,7 +60,7 @@ import ActivityCard from './ActivityCard.vue';
 import FocusTasks from './FocusTasks.vue';
 import { Optional } from '../../typings/types';
 import YourTeams from './YourTeams.vue';
-import { api } from '../..';
+import { api, store } from '../..';
 import gql from 'graphql-tag';
 
 function fetchPersonalProjects() {
@@ -86,6 +86,11 @@ export default Vue.extend({
 	},
 
 	async beforeRouteEnter(_to, _from, next) {
+		if(!store.instance.state.profile) {
+			next('/explorer');
+			return;
+		}
+
 		const [projects] = await Promise.all([
 			fetchPersonalProjects()
 		]);

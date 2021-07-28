@@ -7,7 +7,7 @@
 
 		<!-- Loading overlay -->
 		<fade-transition>
-			<div v-if="!isReady" class="loading-overlay">
+			<div v-if="showSpinner" class="loading-overlay">
 				<div class="relative select-none">
 					<loading-spinner />
 					<div class="loading-overlay__text">
@@ -34,7 +34,10 @@ export default Vue.extend({
 		shouldAuth(): boolean {
 			return !this.$vuex.state.isAuthed;
 		},
-		...mapState(['isReady'])
+		showSpinner(): boolean {
+			return !this.isReady || !this.isRendered;
+		},
+		...mapState(['isReady', 'isRendered'])
 	},
 
 	watch: {
