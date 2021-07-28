@@ -43,9 +43,7 @@
 				/>
 			</div>
 		</div>
-
-		{{ isSearching }}
-
+		
 		<!-- Search results menu -->
 		<w-menu
 			:value="isSearching && search.length"
