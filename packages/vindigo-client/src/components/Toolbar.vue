@@ -35,46 +35,73 @@
 					inner-icon-left="mdi mdi-magnify"
 					:placeholder="$t('TOOLBAR_SEARCH')"
 					bg-color="gray-200"
+					autocomplete="off"
 					color="gray-700"
+					name="search"
+					@focus="isSearching = true"
+					@blur="isSearching = false"
 				/>
-				<w-menu
-					class="toolbar__search-result"
-					:value="search.length > 0 && Object.values(searchResults).length === 3"
-					detach-to=".toolbar__search>.relative"
-					min-width="100%"
-				>
-					<div v-if="searchResults.users && searchResults.users.length > 0">
-						<b>Users</b>
-						<w-divider style="margin: 10px -13px" />
-						<div 
-							v-for="(user, index) in searchResults.users" :key="index"
-						>
-							{{ user.fullName }}
-						</div>
-					</div>
-					<w-divider style="margin: 10px -13px" />
-					<div v-if="searchResults.teams && searchResults.teams.length > 0">
-						<b>Teams</b>
-						<w-divider style="margin: 10px -13px" />
-						<div 
-							v-for="(team, index) in searchResults.teams" :key="index"
-						>
-							{{ team }}
-						</div>
-					</div>
-					<w-divider style="margin: 10px -13px" />
-					<div v-if="searchResults.projects && searchResults.projects.length > 0">
-						<b>Projects</b>
-						<w-divider style="margin: 10px -13px" />
-						<div 
-							v-for="(project, index) in searchResults.projects" :key="index"
-						>
-							{{ project.name }}
-						</div>
-					</div>
-				</w-menu>
 			</div>
 		</div>
+
+		{{ isSearching }}
+
+		<!-- Search results menu -->
+		<w-menu
+			:value="isSearching && search.length"
+			content-class="search-panel"
+			detach-to=".toolbar__search>.relative"
+			min-width="100%"
+		>
+			<div v-if="search.length < 3">
+				Keep typing...
+			</div>
+			<div v-else-if="searchResults.total == 0">
+				Geen resultaten gevonden
+			</div>
+			<div v-else-if="!searchResults.present">
+				Zoeken...
+			</div>
+			<template v-else>
+				<div v-if="searchResults.users.length > 0">
+					<section-title icon="mdi mdi-folder-open">
+						Users
+					</section-title>
+					<div 
+						v-for="(user, index) in searchResults.users"
+						:key="index"
+						class="flex items-center mt-2"
+					>
+						<avatar
+							:profile="user"
+							:size="25"
+							class="mr-3"
+						/>
+						{{ user.fullName }}
+					</div>
+				</div>
+				<div v-if="searchResults.teams.length > 0">
+					<section-title icon="mdi mdi-folder-open">
+						Teams
+					</section-title>
+					<div 
+						v-for="(team, index) in searchResults.teams" :key="index"
+					>
+						{{ team }}
+					</div>
+				</div>
+				<div v-if="searchResults.projects.length > 0">
+					<section-title icon="mdi mdi-folder-open">
+						Projects
+					</section-title>
+					<div 
+						v-for="(project, index) in searchResults.projects" :key="index"
+					>
+						{{ project.name }}
+					</div>
+				</div>
+			</template>
+		</w-menu>
 
 		<!-- Create new button -->
 		<w-menu
@@ -315,7 +342,7 @@ import { Scrollable } from "../mixin/scrollable";
 import { api } from "..";
 import { gql } from "@apollo/client/core";
 import { MENU_DIVIDER, ToolbarCreationItem } from '../helpers';
-import { debounce } from "lodash";
+import { debounce, sum, values } from "lodash";
 import { mapState } from "vuex";
 
 interface SearchInterface {
@@ -347,6 +374,7 @@ export default Vue.extend({
 		createTeamName: "",
 
 		// Search field
+		isSearching: false,
 		search: "" as string,
 		searchResults: {} as SearchInterface|{}
 	}),
@@ -422,6 +450,12 @@ export default Vue.extend({
 
 	watch: {
 		search() {
+			this.searchResults = {};
+
+			if(this.search.length < 3) {
+				return;
+			}
+
 			this.executeSearchDebounced();
 		},
 		isWaiting() {
@@ -477,8 +511,6 @@ export default Vue.extend({
 			this.newProjectDialog = false;
 		},
 		async executeSearch() {
-			this.searchResults = {};
-
 			const res = await api.query(gql`
 				query ($sq: String!) {
 					search(query: $sq) {
@@ -497,7 +529,15 @@ export default Vue.extend({
 				sq: this.search
 			});
 
-			this.searchResults = res.search;
+			const result = res.search;
+			const vals = values(result).map(it => it.length);
+			const total = sum(vals);
+
+			this.searchResults = {
+				...result,
+				present: true,
+				total: total
+			};
 		}
 	},
 });
@@ -587,4 +627,7 @@ export default Vue.extend({
 	}
 }
 
+.search-panel {
+	@apply bg-white;
+}
 </style>
