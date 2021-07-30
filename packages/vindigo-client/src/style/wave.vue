@@ -1,5 +1,9 @@
 <style lang="postcss">
 
+.w-notification-manager {
+	@apply overflow-x-hidden;
+}
+
 /* Input fields */
 .w-input {
 	&:not(&--outline) {

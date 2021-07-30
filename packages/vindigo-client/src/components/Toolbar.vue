@@ -589,6 +589,8 @@ export default Vue.extend({
 
 			this.newProjectLoading = false;
 			this.newProjectDialog = false;
+		
+			this.$waveui.notify(`Project ${this.newProjectName} created`, 'success');
 		},
 		async createTeam() {
 			this.newTeamLoading = true;
@@ -608,6 +610,8 @@ export default Vue.extend({
 
 			this.newTeamLoading = false;
 			this.newTeamDialog = false;
+
+			this.$waveui.notify(`Team ${this.newTeamName} created`, 'success');
 		},
 		async executeSearch() {
 			const res = await api.query(gql`
