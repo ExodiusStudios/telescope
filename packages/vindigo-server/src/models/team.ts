@@ -1,4 +1,7 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryColumn } from "typeorm";
+
+import { ProjectTeam } from "./projectTeam";
+import { User } from "./user";
 
 /**
  * Represents a team of members within vindigo
@@ -6,7 +9,7 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity('teams')
 export class Team extends BaseEntity {
 
-	@PrimaryGeneratedColumn()
+	@PrimaryColumn()
 	public id: number;
 
 	@Column()
@@ -20,5 +23,12 @@ export class Team extends BaseEntity {
 
 	@Column()
 	public logoImage: string;
+
+	@ManyToMany(() => User, user => user.teams)
+	@JoinTable({name: 'team_members'})
+	public members: User[];
+
+	@OneToMany(() => ProjectTeam, project => project.team)
+	public projects: ProjectTeam[];
 
 }
