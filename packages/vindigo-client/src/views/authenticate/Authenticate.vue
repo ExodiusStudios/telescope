@@ -125,6 +125,10 @@ export default Vue.extend({
 
 	&__toggle {
 		@apply font-light text-sm mt-3 cursor-pointer select-none text-gray-100;
+
+		strong {
+			@apply font-semibold;
+		}
 	}
 
 	&__button i {
