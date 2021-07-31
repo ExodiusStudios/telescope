@@ -14,7 +14,7 @@ exports.up = async ({ schema }: Knex) => {
 		table.timestamp('created_at');
 		table.timestamp('last_seen_at');
 		table.boolean('is_enabled').defaultTo(true);
-		table.boolean('is_verified').defaultTo(true);
+		table.boolean('is_verified').defaultTo(false);
 	});
 };
 

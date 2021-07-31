@@ -1,6 +1,7 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from "typeorm";
 
 import { ProjectMember } from "./projectMember";
+import { Team } from "./team";
 
 /**
  * Represents a single registered Vindigo user
@@ -8,7 +9,7 @@ import { ProjectMember } from "./projectMember";
 @Entity('users')
 export class User extends BaseEntity {
 
-	@PrimaryGeneratedColumn()
+	@PrimaryColumn()
 	public id: number;
 
 	@Column()
@@ -46,5 +47,8 @@ export class User extends BaseEntity {
 
 	@OneToMany(() => ProjectMember, member => member.user)
 	public projects: ProjectMember[];
+
+	@ManyToMany(() => Team, team => team.members)
+	public teams: Team[];
 
 }

@@ -1,13 +1,13 @@
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 
 import { Project } from "./project";
-import { User } from "./user";
+import { Team } from "./team";
 
 /**
- * Represents a member of a project
+ * Represents a team invited to a project
  */
-@Entity('project_members')
-export class ProjectMember extends BaseEntity {
+@Entity('project_teams')
+export class ProjectTeam extends BaseEntity {
 
 	@PrimaryColumn()
 	public id: number;
@@ -15,8 +15,8 @@ export class ProjectMember extends BaseEntity {
 	@ManyToOne(() => Project, project => project.members)
 	public project: Project;
 
-	@ManyToOne(() => User, user => user.projects)
-	public user: User;
+	@ManyToOne(() => Team, team => team.projects)
+	public team: Team;
 
 	@Column()
 	public accessLevel: string;
