@@ -1,13 +1,21 @@
 <template>
 	<section class="sign-up flex flex-col">
-		<h1 class="font-semibold text-white text-2xl uppercase tracking-widest py-3">
-			SIGN UP
+		<h1
+			class="
+				font-semibold
+				text-white text-2xl
+				uppercase
+				tracking-widest
+				py-3
+			"
+		>
+			{{ $t("SIGNIN_SIGNIN") }}
 		</h1>
 		<form>
 			<w-input
 				v-model="email"
 				class="auth-box__input my-5 text-center"
-				placeholder="Email Address"
+				:placeholder="$t('SIGNIN_EMAIL')"
 				autocomplete="sign-up email"
 				name="email"
 				round
@@ -15,7 +23,7 @@
 			<w-input
 				v-model="fullname"
 				class="auth-box__input my-5 text-center"
-				placeholder="Full Name"
+				:placeholder="$t('SIGNIN_FULL_NAME')"
 				autocomplete="sign-up name"
 				name="name"
 				round
@@ -23,7 +31,7 @@
 			<w-input
 				v-model="password"
 				class="auth-box__input my-5"
-				placeholder="Password"
+				:placeholder="$t('SIGNIN_PASSWORD')"
 				password-reveal
 				autocomplete="sign-up password"
 				type="password"
@@ -33,7 +41,7 @@
 		</form>
 		<div class="flex text-white">
 			<w-checkbox v-model="remember" round>
-				Remember me
+				{{ $t("SIGNIN_REMEMBER_ME") }}
 			</w-checkbox>
 		</div>
 		<spacer />
@@ -45,47 +53,42 @@
 			:loading="loading"
 			@click="register"
 		>
-			Register Account
-			<w-icon>
-				mdi mdi-chevron-right
-			</w-icon>
+			{{ $t("SIGNIN_REGISTER_ACCOUNT") }}
+			<w-icon> mdi mdi-chevron-right </w-icon>
 		</w-button>
 
 		<div class="auth-box__toggle" @click="$emit('toggle')">
-			Already have an account?
-			<strong class="font-semibold">
-				Sign in
-			</strong>
+			<div v-html="$t('SIGNIN_HAVE_ACCOUNT')"></div>
 		</div>
 	</section>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue from "vue";
 export default Vue.extend({
-	name: 'Register',
-	
+	name: "Register",
+
 	data: () => ({
-		fullname: '',
-		email: '',
-		password: '',
+		fullname: "",
+		email: "",
+		password: "",
 		remember: false,
-		loading: false
+		loading: false,
 	}),
-	
+
 	methods: {
 		async register() {
 			this.loading = true;
 
-			await this.$vuex.dispatch('signUp', {
+			await this.$vuex.dispatch("signUp", {
 				fullname: this.fullname,
 				email: this.email,
 				password: this.password,
-				remember: this.remember
+				remember: this.remember,
 			});
 
 			this.loading = false;
-		}
-	}
+		},
+	},
 });
 </script>

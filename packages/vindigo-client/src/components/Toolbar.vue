@@ -1,9 +1,5 @@
 <template>
-	<header
-		ref="toolbar"
-		class="toolbar"
-		:class="toolbarClass"
-	>
+	<header ref="toolbar" class="toolbar" :class="toolbarClass">
 		<w-progress
 			top
 			absolute
@@ -20,7 +16,7 @@
 					:src="logoUrl"
 					class="h-10 select-none"
 					@dragstart.prevent
-				>
+				/>
 			</router-link>
 		</slot>
 
@@ -43,7 +39,7 @@
 				/>
 			</div>
 		</div>
-		
+
 		<!-- ANCHOR Search results menu -->
 		<w-menu
 			:value="isSearching && search.length"
@@ -52,18 +48,18 @@
 			min-width="100%"
 		>
 			<div v-if="search.length < 3">
-				{{ $t('TOOLBAR_SEARCH_LENGTH') }}
+				{{ $t("TOOLBAR_SEARCH_LENGTH") }}
 			</div>
 			<div v-else-if="searchResults.total == 0">
-				{{ $t('TOOLBAR_SEARCH_NO_RESULTS') }}
+				{{ $t("TOOLBAR_SEARCH_NO_RESULTS") }}
 			</div>
 			<div v-else-if="!searchResults.present">
-				{{ $t('TOOLBAR_SEARCH_SEARCHING') }}
+				{{ $t("TOOLBAR_SEARCH_SEARCHING") }}
 			</div>
 			<template v-else>
 				<div v-if="searchResults.users.length > 0">
 					<section-title icon="mdi mdi-folder-open">
-						Users
+						{{ $t("GENERAL_USERS") }}
 					</section-title>
 					<router-link
 						v-for="(user, index) in searchResults.users"
@@ -72,30 +68,28 @@
 						class="flex items-center mt-2"
 						tag="dev"
 					>
-						<avatar
-							:profile="user"
-							:size="22"
-							class="mr-3"
-						/>
+						<avatar :profile="user" :size="22" class="mr-3" />
 						{{ user.fullName }}
 					</router-link>
 				</div>
 				<div v-if="searchResults.teams.length > 0">
 					<section-title icon="mdi mdi-folder-open">
-						Teams
+						{{ $t("GENERAL_TEAMS") }}
 					</section-title>
-					<div 
-						v-for="(team, index) in searchResults.teams" :key="index"
+					<div
+						v-for="(team, index) in searchResults.teams"
+						:key="index"
 					>
 						{{ team }}
 					</div>
 				</div>
 				<div v-if="searchResults.projects.length > 0">
 					<section-title icon="mdi mdi-folder-open">
-						Projects
+						{{ $t("GENERAL_PROJECTS") }}
 					</section-title>
-					<div 
-						v-for="(project, index) in searchResults.projects" :key="index"
+					<div
+						v-for="(project, index) in searchResults.projects"
+						:key="index"
 					>
 						{{ project.name }}
 					</div>
@@ -104,12 +98,8 @@
 		</w-menu>
 
 		<!-- ANCHOR Create new button -->
-		<w-menu
-			hide-on-menu-click
-			align-center
-			custom
-		>
-			<template #activator="{on}">
+		<w-menu hide-on-menu-click align-center custom>
+			<template #activator="{ on }">
 				<w-button
 					v-wave
 					class="mr-0 text-indigo-600 dark:text-gray-100"
@@ -121,14 +111,15 @@
 			</template>
 			<div class="toolbar-menu">
 				<p class="toolbar-menu__title">
-					{{ $t('TOOLBAR_CREATE') }}
+					{{ $t("TOOLBAR_CREATE") }}
 				</p>
 				<w-divider />
 				<div class="toolbar-menu__list">
 					<template v-for="(item, i) in creationItems">
 						<w-divider v-if="item == MENU_DIVIDER" :key="i" />
 						<div
-							v-else :key="i"
+							v-else
+							:key="i"
 							class="toolbar-menu__item"
 							@click="item.handler"
 						>
@@ -157,11 +148,8 @@
 		<div class="toolbar__divider mr-4" />
 
 		<!-- ANCHOR Account menu -->
-		<w-menu
-			align-right
-			custom
-		>
-			<template #activator="{on}">
+		<w-menu align-right custom>
+			<template #activator="{ on }">
 				<div
 					class="flex items-center text-gray-800 cursor-pointer"
 					v-on="on"
@@ -178,7 +166,7 @@
 			</template>
 			<div class="toolbar-menu">
 				<p class="toolbar-menu__title">
-					{{ $t('YOUR_ACCOUNT') }}
+					{{ $t("YOUR_ACCOUNT") }}
 				</p>
 				<w-divider />
 				<div class="toolbar-menu__list">
@@ -187,71 +175,45 @@
 						class="toolbar-menu__item"
 						tag="div"
 					>
-						<w-icon size="1.1rem">
-							mdi mdi-account
-						</w-icon>
-						{{ $t('YOUR_ACCOUNT_PROFILE') }}
+						<w-icon size="1.1rem"> mdi mdi-account </w-icon>
+						{{ $t("YOUR_ACCOUNT_PROFILE") }}
 					</router-link>
-					<router-link
-						to=""
-						class="toolbar-menu__item"
-						tag="div"
-					>
-						<w-icon size="1.1rem">
-							mdi mdi-animation
-						</w-icon>
-						{{ $t('YOUR_ACCOUNT_PROJECTS') }}
+					<router-link to="" class="toolbar-menu__item" tag="div">
+						<w-icon size="1.1rem"> mdi mdi-animation </w-icon>
+						{{ $t("YOUR_ACCOUNT_PROJECTS") }}
 					</router-link>
-					<router-link
-						to=""
-						class="toolbar-menu__item"
-						tag="div"
-					>
-						<w-icon size="1.1rem">
-							mdi mdi-briefcase
-						</w-icon>
-						{{ $t('YOUR_ACCOUNT_TEAMS') }}
+					<router-link to="" class="toolbar-menu__item" tag="div">
+						<w-icon size="1.1rem"> mdi mdi-briefcase </w-icon>
+						{{ $t("YOUR_ACCOUNT_TEAMS") }}
 					</router-link>
-					<router-link
-						to=""
-						class="toolbar-menu__item"
-						tag="div"
-					>
+					<router-link to="" class="toolbar-menu__item" tag="div">
 						<w-icon size="1.1rem">
 							mdi mdi-google-analytics
 						</w-icon>
-						{{ $t('YOUR_ACCOUNT_ACTIVITY') }}
+						{{ $t("YOUR_ACCOUNT_ACTIVITY") }}
 					</router-link>
 					<w-divider />
-					<router-link
-						to=""
-						class="toolbar-menu__item"
-						tag="div"
-					>
+					<router-link to="" class="toolbar-menu__item" tag="div">
 						<w-icon size="1.1rem">
 							mdi mdi-help-circle-outline
 						</w-icon>
-						{{ $t('YOUR_ACCOUNT_HELP') }}
+						{{ $t("YOUR_ACCOUNT_HELP") }}
 					</router-link>
 					<router-link
 						to="/settings"
 						class="toolbar-menu__item"
 						tag="div"
 					>
-						<w-icon size="1.1rem">
-							mdi mdi-cog-outline
-						</w-icon>
-						{{ $t('YOUR_ACCOUNT_SETTINGS') }}
+						<w-icon size="1.1rem"> mdi mdi-cog-outline </w-icon>
+						{{ $t("YOUR_ACCOUNT_SETTINGS") }}
 					</router-link>
 					<w-divider />
 					<div
 						class="toolbar-menu__item text-red-400"
 						@click="$store.dispatch('signOut')"
 					>
-						<w-icon size="1.1rem">
-							mdi mdi-logout
-						</w-icon>
-						{{ $t('YOUR_ACCOUNT_SIGN_OUT') }}
+						<w-icon size="1.1rem"> mdi mdi-logout </w-icon>
+						{{ $t("YOUR_ACCOUNT_SIGN_OUT") }}
 					</div>
 				</div>
 			</div>
@@ -264,12 +226,12 @@
 			width="600"
 		>
 			<section-title icon="mdi mdi-folder-multiple-plus">
-				Create new project
+				{{ $t("CREATE_NEW_PROJECT") }}
 			</section-title>
-			
+
 			<div class="p-2">
 				<label class="text-gray-500 mb-1 mt-3 block text-sm">
-					Project name
+					{{ $t("CREATE_NEW_PROJECT_NAME") }}
 				</label>
 				<w-input
 					v-model="newProjectName"
@@ -279,7 +241,7 @@
 				/>
 
 				<label class="text-gray-500 mb-1 mt-3 block text-sm">
-					Description <small>(optional)</small>
+					<div v-html="$t('CREATE_NEW_DESC')"></div>
 				</label>
 				<w-textarea
 					v-model="newProjectDesc"
@@ -290,7 +252,7 @@
 				/>
 
 				<label class="text-gray-500 mb-1 mt-3 block text-sm">
-					Invite members <small>(optional)</small>
+					<div v-html="$t('CREATE_NEW_INVITE_MEMBERS')"></div>
 				</label>
 
 				<div class="addition-list">
@@ -324,28 +286,22 @@
 						:disabled="!newProjectName"
 						@click="createProject"
 					>
-						<w-icon class="mr-2">
-							mdi mdi-plus
-						</w-icon>
-						Create project
+						<w-icon class="mr-2"> mdi mdi-plus </w-icon>
+						{{ $t("CREATE_NEW_PROJECT_CREATE") }}
 					</w-button>
 				</div>
 			</div>
 		</w-dialog>
 
 		<!-- ANCHOR Project creation dialog -->
-		<w-dialog
-			v-model="newTeamDialog"
-			dialog-class="rounded-xl"
-			width="600"
-		>
+		<w-dialog v-model="newTeamDialog" dialog-class="rounded-xl" width="600">
 			<section-title icon="mdi mdi-account-multiple-plus">
-				Create new team
+				{{ $t("CREATE_NEW_TEAM") }}
 			</section-title>
-			
+
 			<div class="p-2">
 				<label class="text-gray-500 mb-1 mt-3 block text-sm">
-					Team name
+					{{ $t("CREATE_NEW_TEAM_NAME") }}
 				</label>
 				<w-input
 					v-model="newTeamName"
@@ -355,7 +311,7 @@
 				/>
 
 				<label class="text-gray-500 mb-1 mt-3 block text-sm">
-					Description <small>(optional)</small>
+					<div v-html="$t('CREATE_NEW_DESC')"></div>
 				</label>
 				<w-textarea
 					v-model="newTeamDesc"
@@ -366,7 +322,7 @@
 				/>
 
 				<label class="text-gray-500 mb-1 mt-3 block text-sm">
-					Invite members <small>(optional)</small>
+					<div v-html="$t('CREATE_NEW_INVITE_MEMBERS')"></div>
 				</label>
 
 				<div class="addition-list">
@@ -400,10 +356,8 @@
 						:disabled="!newTeamName"
 						@click="createTeam"
 					>
-						<w-icon class="mr-2">
-							mdi mdi-plus
-						</w-icon>
-						Create team
+						<w-icon class="mr-2"> mdi mdi-plus </w-icon>
+						{{ $t("CREATE_NEW_TEAM_CREATE") }}
 					</w-button>
 				</div>
 			</div>
@@ -417,7 +371,7 @@ import { Optional } from "../typings/types";
 import { Scrollable } from "../mixin/scrollable";
 import { api } from "..";
 import { gql } from "@apollo/client/core";
-import { MENU_DIVIDER, ToolbarCreationItem } from '../helpers';
+import { MENU_DIVIDER, ToolbarCreationItem } from "../helpers";
 import { debounce, sum, values } from "lodash";
 import { mapState } from "vuex";
 
@@ -454,13 +408,11 @@ export default Vue.extend({
 		// Search field
 		isSearching: false,
 		search: "" as string,
-		searchResults: {} as SearchInterface|{}
+		searchResults: {} as SearchInterface | {},
 	}),
 
 	computed: {
-		...mapState([
-			'isWaiting'
-		]),
+		...mapState(["isWaiting"]),
 
 		logoUrl(): boolean {
 			return this.$store.state.isDark
@@ -472,7 +424,7 @@ export default Vue.extend({
 		},
 		waiterClass(): any {
 			return {
-				'toolbar__waiter--active': this.isWaiting
+				"toolbar__waiter--active": this.isWaiting,
 			};
 		},
 		toolbarClass(): any {
@@ -483,36 +435,37 @@ export default Vue.extend({
 		creationItems(): any {
 			const items: any[] = [
 				{
-					icon: 'mdi mdi-folder-open',
-					title: 'TOOLBAR_CREATE_PROJECT',
-					description: 'TOOLBAR_CREATE_PROJECT_DESC',
-					handler: this.openProjectCreation
+					icon: "mdi mdi-folder-open",
+					title: "TOOLBAR_CREATE_PROJECT",
+					description: "TOOLBAR_CREATE_PROJECT_DESC",
+					handler: this.openProjectCreation,
 				},
 				{
-					icon: 'mdi mdi-account-group',
-					title: 'TOOLBAR_CREATE_TEAM',
-					description: 'TOOLBAR_CREATE_TEAM_DESC',
-					handler: this.openTeamCreation
-				}
+					icon: "mdi mdi-account-group",
+					title: "TOOLBAR_CREATE_TEAM",
+					description: "TOOLBAR_CREATE_TEAM_DESC",
+					handler: this.openTeamCreation,
+				},
 			];
 
 			let separated = false;
 
-			for(const matched of this.$route.matched) {
+			for (const matched of this.$route.matched) {
 				const creation = matched.meta.creation as ToolbarCreationItem[];
 
-				if(creation) {
+				if (creation) {
 					const component = matched.instances.default as any;
 					const entries = creation.map((item) => {
-						const handler = typeof item.handler == 'string'
-							? component[item.handler]?.bind(component)
-							: item.handler;
+						const handler =
+							typeof item.handler == "string"
+								? component[item.handler]?.bind(component)
+								: item.handler;
 
 						return { ...item, handler };
 					});
 
-					if(entries.length > 0) {
-						if(!separated) {
+					if (entries.length > 0) {
+						if (!separated) {
 							items.push(MENU_DIVIDER);
 							separated = true;
 						}
@@ -523,14 +476,14 @@ export default Vue.extend({
 			}
 
 			return items;
-		}
+		},
 	},
 
 	watch: {
 		search() {
 			this.searchResults = {};
 
-			if(this.search.length < 3) {
+			if (this.search.length < 3) {
 				return;
 			}
 
@@ -538,7 +491,7 @@ export default Vue.extend({
 		},
 		isWaiting() {
 			this.progress = 0;
-		}
+		},
 	},
 
 	created() {
@@ -546,7 +499,7 @@ export default Vue.extend({
 
 		// Simulate the progress bar slowly incrementing
 		this.progressTask = setInterval(() => {
-			if(this.isWaiting) {
+			if (this.isWaiting) {
 				this.progress += Math.random() * 20;
 			}
 		}, 100);
@@ -573,78 +526,93 @@ export default Vue.extend({
 		async createProject() {
 			this.newProjectLoading = true;
 
-			await api.query(gql`
-				mutation ($data: ProjectCreationInput!) {
-					createProject(details: $data) {
-						id
+			await api.query(
+				gql`
+					mutation ($data: ProjectCreationInput!) {
+						createProject(details: $data) {
+							id
+						}
 					}
+				`,
+				{
+					data: {
+						name: this.newProjectName,
+						description: this.newProjectDesc,
+						public: false,
+					},
 				}
-			`, {
-				data: {
-					name: this.newProjectName,
-					description: this.newProjectDesc,
-					public: false
-				}
-			});
+			);
 
 			this.newProjectLoading = false;
 			this.newProjectDialog = false;
-		
-			this.$waveui.notify(`Project ${this.newProjectName} created`, 'success');
+
+			this.$waveui.notify(
+				this.$t("NOTIFICATION_CREATE_PROJECT", [this.newProjectName]),
+				"success"
+			);
 		},
 		async createTeam() {
 			this.newTeamLoading = true;
 
-			await api.query(gql`
-				mutation ($data: TeamCreationInput!) {
-					createTeam(details: $data) {
-						id
+			await api.query(
+				gql`
+					mutation ($data: TeamCreationInput!) {
+						createTeam(details: $data) {
+							id
+						}
 					}
+				`,
+				{
+					data: {
+						name: this.newTeamName,
+						description: this.newTeamDesc,
+					},
 				}
-			`, {
-				data: {
-					name: this.newTeamName,
-					description: this.newTeamDesc
-				}
-			});
+			);
 
 			this.newTeamLoading = false;
 			this.newTeamDialog = false;
 
-			this.$waveui.notify(`Team ${this.newTeamName} created`, 'success');
+			this.$waveui.notify(
+				this.$t("NOTIFICATION_CREATE_TEAM", [this.newTeamName]),
+				"success"
+			);
 		},
 		async executeSearch() {
-			const res = await api.query(gql`
-				query ($sq: String!) {
-					search(query: $sq) {
-						projects {
-							id
-							name
-						}
-						users {
-							id
-							avatar
-							fullName
-						}
-						teams {
-							id
+			const res = await api.query(
+				gql`
+					query ($sq: String!) {
+						search(query: $sq) {
+							projects {
+								id
+								name
+							}
+							users {
+								id
+								avatar
+								fullName
+							}
+							teams {
+								id
+							}
 						}
 					}
+				`,
+				{
+					sq: this.search,
 				}
-			`, {
-				sq: this.search
-			});
+			);
 
 			const result = res.search;
-			const vals = values(result).map(it => it.length);
+			const vals = values(result).map((it) => it.length);
 			const total = sum(vals);
 
 			this.searchResults = {
 				...result,
 				present: true,
-				total: total
+				total: total,
 			};
-		}
+		},
 	},
 });
 </script>

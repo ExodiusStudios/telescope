@@ -25,19 +25,19 @@
 			/>
 			<!-- TODO Clean this up and move to state -->
 			<div class="flex text-white font-light text-sm pt-2">
-				Mon
+				{{ $t("GENERAL_MONDAY") }}
 				<spacer />
-				Tue
+				{{ $t("GENERAL_TUESDAY") }}
 				<spacer />
-				Wed
+				{{ $t("GENERAL_WEDNESDAY") }}
 				<spacer />
-				Thu
+				{{ $t("GENERAL_THURSDAY") }}
 				<spacer />
-				Fri
+				{{ $t("GENERAL_FRIDAY") }}
 				<spacer />
-				Sat
+				{{ $t("GENERAL_SATURDAY") }}
 				<spacer />
-				Sun
+				{{ $t("GENERAL_SUNDAY") }}
 			</div>
 		</div>
 	</section>

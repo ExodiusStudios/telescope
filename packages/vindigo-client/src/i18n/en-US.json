@@ -11,6 +11,15 @@
 	"TOOLBAR_SEARCH_NO_RESULTS": "No results found",
 	"TOOLBAR_SEARCH_SEARCHING": "Searching...",
 
+	"CREATE_NEW_PROJECT": "Create new project",
+	"CREATE_NEW_PROJECT_NAME": "Project name",
+	"CREATE_NEW_PROJECT_CREATE": "Create project",
+	"CREATE_NEW_TEAM": "Create new team",
+	"CREATE_NEW_TEAM_NAME": "Team name",
+	"CREATE_NEW_TEAM_CREATE": "Create team",
+	"CREATE_NEW_DESC": "Description <small>(optional)</small>",
+	"CREATE_NEW_INVITE_MEMBERS": "Invite members <small>(optional)</small>",
+
 	"YOUR_ACCOUNT": "Your Account",
 	"YOUR_ACCOUNT_PROFILE": "Your Profile",
 	"YOUR_ACCOUNT_PROJECTS": "Your Projects",
@@ -19,7 +28,7 @@
 	"YOUR_ACCOUNT_HELP": "Help",
 	"YOUR_ACCOUNT_SETTINGS": "Settings",
 	"YOUR_ACCOUNT_SIGN_OUT": "Sign Out",
-	
+
 	"HOMEPAGE_WELCOME": "Welcome back,",
 	"HOMEPAGE_SECTION_PROJECTS": "Your projects",
 	"HOMEPAGE_SECTION_STARRED": "Starred projects",
@@ -29,6 +38,7 @@
 	"HOMEPAGE_SECTION_TEAMS_MEMBER": "Member",
 	"HOMEPAGE_SECTION_TEAMS_VISIT": "Visit team",
 	"HOMEPAGE_NO_PROJECTS": "You have not joined any projects yet!",
+	"HOMEPAGE_TEAM_NO_PROJECTS": "This team has no projects yet",
 
 	"VIEW_HOME": "Project overview",
 	"VIEW_TASKS": "Tasks",
@@ -41,5 +51,33 @@
 	"SETTINGS_PRIVACY": "Privacy",
 	"SETTINGS_ACCOUNT": "Account",
 	"SETTINGS_LANGUAGE": "Language",
-	"SETTINGS_DARK_MODE": "Dark Mode"
+	"SETTINGS_DARK_MODE": "Dark Mode",
+
+	"SIGNIN_WELCOME": "Welcome",
+	"SIGNIN_USERNAME": "Email or Username",
+	"SIGNIN_PASSWORD": "Password",
+	"SIGNIN_REMEMBER_ME": "Remember me",
+	"SIGNIN_FORGOT_PASSWORD": "Forgot password",
+	"SIGNIN_SIGNIN": "Sign in",
+	"SIGNIN_NO_ACCOUNT": "Don't have an account? <strong>Sign up</strong> instead!",
+	"SIGNIN_SIGNUP": "Sign up",
+	"SIGNIN_EMAIL": "Email Address",
+	"SIGNIN_FULL_NAME": "Full Name",
+	"SIGNIN_REGISTER_ACCOUNT": "Register Account",
+	"SIGNIN_HAVE_ACCOUNT": "Already have an account? <strong>Sign in</strong>",
+
+	"GENERAL_USERS": "Users",
+	"GENERAL_TEAMS": "Teams",
+	"GENERAL_PROJECTS": "Projects",
+	"GENERAL_MONDAY": "Mon",
+	"GENERAL_TUESDAY": "Tues",
+	"GENERAL_WEDNESDAY": "Wed",
+	"GENERAL_THURSDAY": "Thu",
+	"GENERAL_FRIDAY": "Fri",
+	"GENERAL_SATURDAY": "Sat",
+	"GENERAL_SUNDAY": "Sun",
+	
+	"NOTIFICATION_CREATE_PROJECT": "Project {0} created",
+	"NOTIFICATION_CREATE_TEAM": "Team {0} created",
+	"NOTIFICATION_INVALID_DETAILS": "Invalid details"
 }

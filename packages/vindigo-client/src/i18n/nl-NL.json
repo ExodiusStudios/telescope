@@ -10,6 +10,15 @@
 	"TOOLBAR_SEARCH_LENGTH": "Zoekopdracht te klein",
 	"TOOLBAR_SEARCH_NO_RESULTS": "Geen resultaten gevonden",
 	"TOOLBAR_SEARCH_SEARCHING": "Zoeken...",
+
+	"CREATE_NEW_PROJECT": "~Create new project",
+	"CREATE_NEW_PROJECT_NAME": "~Project name",
+	"CREATE_NEW_PROJECT_CREATE": "~Create project",
+	"CREATE_NEW_TEAM": "~Create new team",
+	"CREATE_NEW_TEAM_NAME": "~Team name",
+	"CREATE_NEW_TEAM_CREATE": "~Create team",
+	"CREATE_NEW_DESC": "~Description <small>(optional)</small>",
+	"CREATE_NEW_INVITE_MEMBERS": "~Invite members <small>(optional)</small>",
 	
 	"YOUR_ACCOUNT": "Jouw Account",
 	"YOUR_ACCOUNT_PROFILE": "Jouw Profile",
@@ -29,6 +38,7 @@
 	"HOMEPAGE_SECTION_TEAMS_MEMBER": "Deelnemer",
 	"HOMEPAGE_SECTION_TEAMS_VISIT": "Bezoek team",
 	"HOMEPAGE_NO_PROJECTS": "Je bent nog geen lid van een project",
+	"HOMEPAGE_TEAM_NO_PROJECTS": "~This team has no projects yet",
 
 	"VIEW_HOME": "Project overzicht",
 	"VIEW_TASKS": "Takenlijst",
@@ -41,5 +51,35 @@
 	"SETTINGS_PRIVACY": "Privacy",
 	"SETTINGS_ACCOUNT": "Account",
 	"SETTINGS_LANGUAGE": "Taal",
-	"SETTINGS_DARK_MODE": "Donkere Modus"
+	"SETTINGS_DARK_MODE": "Donkere Modus",
+
+	"SIGNIN_WELCOME": "Welkom",
+	"SIGNIN_USERNAME": "~Email or Username",
+	"SIGNIN_PASSWORD": "~Password",
+	"SIGNIN_REMEMBER_ME": "~Remember me",
+	"SIGNIN_FORGOT_PASSWORD": "~Forgot password",
+	"SIGNIN_SIGNIN": "~Sign in",
+	"SIGNIN_NO_ACCOUNT": "~Don't have an account? <strong>Sign up</strong> instead!",
+	"SIGNIN_SIGNUP": "~Sign up",
+	"SIGNIN_EMAIL": "~Email Address",
+	"SIGNIN_FULL_NAME": "~Full Name",
+	"SIGNIN_REGISTER_ACCOUNT": "~Register Account",
+	"SIGNIN_HAVE_ACCOUNT": "~Already have an account? <strong>Sign in</strong>",
+
+	"GENERAL_USERS": "~Users",
+	"GENERAL_TEAMS": "~Teams",
+	"GENERAL_PROJECT": "~Project",
+	"GENERAL_PROJECTS": "~Projects",
+	"GENERAL_CREATED": "created",
+	"GENERAL_MONDAY": "~Mon",
+	"GENERAL_TUESDAY": "~Tues",
+	"GENERAL_WEDNESDAY": "~Wed",
+	"GENERAL_THURSDAY": "~Thu",
+	"GENERAL_FRIDAY": "~Fri",
+	"GENERAL_SATURDAY": "~Sat",
+	"GENERAL_SUNDAY": "~Sun",
+
+	"NOTIFICATION_CREATE_PROJECT": "~Project {0} created",
+	"NOTIFICATION_CREATE_TEAM": "~Team {0} created",
+	"NOTIFICATION_INVALID_DETAILS": "~Invalid details"
 }

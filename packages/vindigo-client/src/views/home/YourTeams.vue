@@ -53,7 +53,7 @@
 			>
 				<template #empty>
 					<div class="bg-white p-3">
-						This team has no projects yet
+						{{ $t('HOMEPAGE_TEAM_NO_PROJECTS') }}
 					</div>
 				</template>
 			</project-list>
