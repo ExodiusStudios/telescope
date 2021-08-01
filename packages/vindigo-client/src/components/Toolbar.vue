@@ -1,5 +1,8 @@
 <template>
-	<header ref="toolbar" class="toolbar" :class="toolbarClass">
+	<header
+		ref="toolbar" class="toolbar"
+		:class="toolbarClass"
+	>
 		<w-progress
 			top
 			absolute
@@ -16,7 +19,7 @@
 					:src="logoUrl"
 					class="h-10 select-none"
 					@dragstart.prevent
-				/>
+				>
 			</router-link>
 		</slot>
 
@@ -68,7 +71,10 @@
 						class="flex items-center mt-2"
 						tag="dev"
 					>
-						<avatar :profile="user" :size="22" class="mr-3" />
+						<avatar
+							:profile="user" :size="22"
+							class="mr-3"
+						/>
 						{{ user.fullName }}
 					</router-link>
 				</div>
@@ -98,7 +104,10 @@
 		</w-menu>
 
 		<!-- ANCHOR Create new button -->
-		<w-menu hide-on-menu-click align-center custom>
+		<w-menu
+			hide-on-menu-click align-center
+			custom
+		>
 			<template #activator="{ on }">
 				<w-button
 					v-wave
@@ -175,25 +184,43 @@
 						class="toolbar-menu__item"
 						tag="div"
 					>
-						<w-icon size="1.1rem"> mdi mdi-account </w-icon>
+						<w-icon size="1.1rem">
+							mdi mdi-account
+						</w-icon>
 						{{ $t("YOUR_ACCOUNT_PROFILE") }}
 					</router-link>
-					<router-link to="" class="toolbar-menu__item" tag="div">
-						<w-icon size="1.1rem"> mdi mdi-animation </w-icon>
+					<router-link
+						to="" class="toolbar-menu__item"
+						tag="div"
+					>
+						<w-icon size="1.1rem">
+							mdi mdi-animation
+						</w-icon>
 						{{ $t("YOUR_ACCOUNT_PROJECTS") }}
 					</router-link>
-					<router-link to="" class="toolbar-menu__item" tag="div">
-						<w-icon size="1.1rem"> mdi mdi-briefcase </w-icon>
+					<router-link
+						to="" class="toolbar-menu__item"
+						tag="div"
+					>
+						<w-icon size="1.1rem">
+							mdi mdi-briefcase
+						</w-icon>
 						{{ $t("YOUR_ACCOUNT_TEAMS") }}
 					</router-link>
-					<router-link to="" class="toolbar-menu__item" tag="div">
+					<router-link
+						to="" class="toolbar-menu__item"
+						tag="div"
+					>
 						<w-icon size="1.1rem">
 							mdi mdi-google-analytics
 						</w-icon>
 						{{ $t("YOUR_ACCOUNT_ACTIVITY") }}
 					</router-link>
 					<w-divider />
-					<router-link to="" class="toolbar-menu__item" tag="div">
+					<router-link
+						to="" class="toolbar-menu__item"
+						tag="div"
+					>
 						<w-icon size="1.1rem">
 							mdi mdi-help-circle-outline
 						</w-icon>
@@ -204,7 +231,9 @@
 						class="toolbar-menu__item"
 						tag="div"
 					>
-						<w-icon size="1.1rem"> mdi mdi-cog-outline </w-icon>
+						<w-icon size="1.1rem">
+							mdi mdi-cog-outline
+						</w-icon>
 						{{ $t("YOUR_ACCOUNT_SETTINGS") }}
 					</router-link>
 					<w-divider />
@@ -212,7 +241,9 @@
 						class="toolbar-menu__item text-red-400"
 						@click="$store.dispatch('signOut')"
 					>
-						<w-icon size="1.1rem"> mdi mdi-logout </w-icon>
+						<w-icon size="1.1rem">
+							mdi mdi-logout
+						</w-icon>
 						{{ $t("YOUR_ACCOUNT_SIGN_OUT") }}
 					</div>
 				</div>
@@ -241,7 +272,7 @@
 				/>
 
 				<label class="text-gray-500 mb-1 mt-3 block text-sm">
-					<div v-html="$t('CREATE_NEW_DESC')"></div>
+					<div v-html="$t('CREATE_NEW_DESC')" />
 				</label>
 				<w-textarea
 					v-model="newProjectDesc"
@@ -252,7 +283,7 @@
 				/>
 
 				<label class="text-gray-500 mb-1 mt-3 block text-sm">
-					<div v-html="$t('CREATE_NEW_INVITE_MEMBERS')"></div>
+					<div v-html="$t('CREATE_NEW_INVITE_MEMBERS')" />
 				</label>
 
 				<div class="addition-list">
@@ -286,15 +317,20 @@
 						:disabled="!newProjectName"
 						@click="createProject"
 					>
-						<w-icon class="mr-2"> mdi mdi-plus </w-icon>
+						<w-icon class="mr-2">
+							mdi mdi-plus
+						</w-icon>
 						{{ $t("CREATE_NEW_PROJECT_CREATE") }}
 					</w-button>
 				</div>
 			</div>
 		</w-dialog>
 
-		<!-- ANCHOR Project creation dialog -->
-		<w-dialog v-model="newTeamDialog" dialog-class="rounded-xl" width="600">
+		<!-- ANCHOR Team creation dialog -->
+		<w-dialog
+			v-model="newTeamDialog" dialog-class="rounded-xl"
+			width="600"
+		>
 			<section-title icon="mdi mdi-account-multiple-plus">
 				{{ $t("CREATE_NEW_TEAM") }}
 			</section-title>
@@ -311,7 +347,7 @@
 				/>
 
 				<label class="text-gray-500 mb-1 mt-3 block text-sm">
-					<div v-html="$t('CREATE_NEW_DESC')"></div>
+					<div v-html="$t('CREATE_NEW_DESC')" />
 				</label>
 				<w-textarea
 					v-model="newTeamDesc"
@@ -322,7 +358,7 @@
 				/>
 
 				<label class="text-gray-500 mb-1 mt-3 block text-sm">
-					<div v-html="$t('CREATE_NEW_INVITE_MEMBERS')"></div>
+					<div v-html="$t('CREATE_NEW_INVITE_MEMBERS')" />
 				</label>
 
 				<div class="addition-list">
@@ -356,7 +392,9 @@
 						:disabled="!newTeamName"
 						@click="createTeam"
 					>
-						<w-icon class="mr-2"> mdi mdi-plus </w-icon>
+						<w-icon class="mr-2">
+							mdi mdi-plus
+						</w-icon>
 						{{ $t("CREATE_NEW_TEAM_CREATE") }}
 					</w-button>
 				</div>
@@ -510,74 +548,76 @@ export default Vue.extend({
 	},
 
 	methods: {
+
 		getScrollView() {
 			return this.$el.parentElement;
 		},
+
 		openProjectCreation() {
 			this.newProjectDialog = true;
 			this.newProjectName = "";
 			this.newProjectDesc = "";
 		},
+
+		async createProject() {
+			this.newProjectLoading = true;
+
+			const res = await api.query(gql`
+				mutation ($data: ProjectCreationInput!) {
+					createProject(details: $data) {
+						projectUrl
+					}
+				}
+			`, {
+				data: {
+					name: this.newProjectName,
+					description: this.newProjectDesc,
+					public: false,
+				},
+			});
+
+			this.newProjectLoading = false;
+			this.newProjectDialog = false;
+
+			this.$router.push(res.createProject.projectUrl);
+			this.$waveui.notify({
+				message: this.$t('NOTIFICATION_CREATE_PROJECT', [this.newProjectName]),
+				success: true
+			});
+		},
+
 		openTeamCreation() {
 			this.newTeamDialog = true;
 			this.newTeamName = "";
 			this.newTeamDesc = "";
 		},
-		async createProject() {
-			this.newProjectLoading = true;
 
-			await api.query(
-				gql`
-					mutation ($data: ProjectCreationInput!) {
-						createProject(details: $data) {
-							id
-						}
-					}
-				`,
-				{
-					data: {
-						name: this.newProjectName,
-						description: this.newProjectDesc,
-						public: false,
-					},
-				}
-			);
-
-			this.newProjectLoading = false;
-			this.newProjectDialog = false;
-
-			this.$waveui.notify(
-				this.$t("NOTIFICATION_CREATE_PROJECT", [this.newProjectName]),
-				"success"
-			);
-		},
 		async createTeam() {
 			this.newTeamLoading = true;
 
-			await api.query(
-				gql`
-					mutation ($data: TeamCreationInput!) {
-						createTeam(details: $data) {
-							id
-						}
+			const res = await api.query(gql`
+				mutation ($data: TeamCreationInput!) {
+					createTeam(details: $data) {
+						teamUrl
 					}
-				`,
-				{
-					data: {
-						name: this.newTeamName,
-						description: this.newTeamDesc,
-					},
 				}
-			);
+			`, {
+				data: {
+					name: this.newTeamName,
+					description: this.newTeamDesc,
+				},
+			});
 
 			this.newTeamLoading = false;
 			this.newTeamDialog = false;
 
-			this.$waveui.notify(
-				this.$t("NOTIFICATION_CREATE_TEAM", [this.newTeamName]),
-				"success"
-			);
+			this.$router.push(res.createTeam.teamUrl);
+			this.$waveui.notify({
+				message: this.$t('NOTIFICATION_CREATE_TEAM', [this.newTeamName]),
+				success: true
+			});
 		},
+
 		async executeSearch() {
 			const res = await api.query(
 				gql`

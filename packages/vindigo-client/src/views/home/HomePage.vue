@@ -44,7 +44,7 @@
 				</section>
 				
 				<!-- Your teams -->
-				<your-teams />
+				<your-teams :teams="teams" />
 			</div>
 			<aside class="col-span-full laptop:col-span-3 desktop:col-span-2 order-first laptop:order-none -mt-20">
 				<activity-card />
@@ -62,19 +62,7 @@ import { Optional } from '../../typings/types';
 import YourTeams from './YourTeams.vue';
 import { api, store } from '../..';
 import gql from 'graphql-tag';
-
-function fetchPersonalProjects() {
-	return api.query(gql`
-		query {
-			projects(mode: ACCESS) {
-				id
-				name
-				coverImage
-				projectUrl
-			}
-		}
-	`).then(res => res.projects);
-}
+import { projectTileFragment } from '../../fragments';
 
 export default Vue.extend({
 	name: 'HomePage',
@@ -91,19 +79,35 @@ export default Vue.extend({
 			return;
 		}
 
-		const [projects] = await Promise.all([
-			fetchPersonalProjects()
-		]);
+		const { projects, teams } = await api.query(gql`
+			query {
+				projects(mode: ACCESS) {
+					...ProjectTileFields
+				}
+				teams {
+					id
+					name
+					teamUrl
+					logoImage
+					projects {
+						...ProjectTileFields
+					}
+				}
+			}
+			${projectTileFragment}
+		`);
 
 		next((vm: any) => {
 			vm.projects = projects;
 			vm.starred = [];
+			vm.teams = teams;
 		});
 	},
 
 	data: () => ({
 		starred: [],
-		projects: []
+		projects: [],
+		teams: []
 	}),
 
 	computed: {

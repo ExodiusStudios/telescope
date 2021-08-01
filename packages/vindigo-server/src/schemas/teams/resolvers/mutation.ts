@@ -22,6 +22,7 @@ export default {
 		team.name = name;
 		team.createdAt = new Date();
 		team.description = description || '';
+		team.creatorId = ctx.user.id;
 		team.members = [ctx.user];
 		
 		return await team.save();

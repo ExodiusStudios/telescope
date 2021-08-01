@@ -22,7 +22,7 @@
 		>
 			<div class="your-teams__toolbar p-2 px-3 flex flex-row items-center bg-page-foreground dark:bg-page-foreground-dark rounded-lg">
 				<w-image
-					:src="team.logo"
+					:src="team.logoImage"
 					class="rounded-lg overflow-hidden"
 					height="38"
 					width="38"
@@ -39,6 +39,7 @@
 				<w-button
 					outline
 					color="indigo-600"
+					:route="team.teamUrl"
 				>
 					{{ $t('HOMEPAGE_SECTION_TEAMS_VISIT') }}
 					<w-icon>
@@ -64,31 +65,26 @@
 <script lang="ts">
 import { commerce } from 'faker';
 import { datatype } from 'faker';
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 
 export default Vue.extend({
 	name: 'YourTeams',
 
+	props: {
+		teams: {
+			type: Array as PropType<any[]>,
+			required: true
+		}
+	},
+
 	data: () => ({
-		page: 0,
-		teams: [] as any[]
+		currentPages: {}
 	}),
 
 	created() {
-		this.teams = [
-			{
-				id: 1,
-				logo: '/data/teams/1.png',
-				name: 'Exodius Studios',
-				projects: this.genProjects()
-			},
-			{
-				id: 2,
-				logo: '/data/teams/2.png',
-				name: 'Smash Wizards',
-				projects: this.genProjects()
-			}
-		];
+		for(const team of this.teams) {
+			this.$set(this.currentPages, team.id, 0);
+		}
 	},
 
 	methods: {

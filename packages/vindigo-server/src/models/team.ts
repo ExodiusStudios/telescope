@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 import { ProjectTeam } from "./projectTeam";
 import { User } from "./user";
@@ -9,7 +9,7 @@ import { User } from "./user";
 @Entity('teams')
 export class Team extends BaseEntity {
 
-	@PrimaryColumn()
+	@PrimaryGeneratedColumn()
 	public id: number;
 
 	@Column()
@@ -30,8 +30,8 @@ export class Team extends BaseEntity {
 	@ManyToMany(() => User, user => user.teams)
 	@JoinTable({
 		name: 'team_members',
-		joinColumn: { name: 'member_id', referencedColumnName: 'id' },
-		inverseJoinColumn: { name: 'team_id', referencedColumnName: 'id' }
+		joinColumn: { name: 'team_id', referencedColumnName: 'id' },
+		inverseJoinColumn: { name: 'member_id', referencedColumnName: 'id' }
 	})
 	public members: User[];
 
