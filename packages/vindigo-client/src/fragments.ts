@@ -13,3 +13,15 @@ export const profileFragment = gql`
 		firstName
 	}
 `;
+
+/**
+ * The profile tile profile fragment
+ */
+export const projectTileFragment = gql`
+	fragment ProjectTileFields on Project {
+		id
+		name
+		coverImage
+		projectUrl
+	}
+`;
