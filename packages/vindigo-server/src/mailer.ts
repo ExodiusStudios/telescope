@@ -2,6 +2,7 @@ import { config, logger } from '.';
 import nodemailer, { Transporter } from 'nodemailer';
 
 import { IServerConfig } from './util/config';
+import directTransport from 'nodemailer-direct-transport';
 
 /**
  * The service used to send emails optionally over SMTP
@@ -27,9 +28,7 @@ export class MailingService {
 		} else {
 			logger.info(`Using fallback emailer`);
 
-			this.transporter = nodemailer.createTransport({
-				sendmail: true
-			});
+			this.transporter = nodemailer.createTransport(directTransport({}));
 		}
 	}
 
@@ -41,7 +40,7 @@ export class MailingService {
 			text: body
 		});
 	
-		logger.info(`Sent an email with the subject ${subject}, and the body of ${body} to ${target}`);
+		logger.info(`Dispatching a plain text email with the subject of "${subject}" to ${target}`);
 	}
 	
 	public async sendHTMLEmail(target: string, subject: string, html: string) {
@@ -52,7 +51,7 @@ export class MailingService {
 			html: html
 		});
 	
-		logger.info(`Sent an email with the subject ${subject}, and the html of ${html} to ${target}`);
+		logger.info(`Dispatching an HTML email with the subject of "${subject}" to ${target}`);
 	}
 
 }
