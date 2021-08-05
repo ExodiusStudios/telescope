@@ -85,5 +85,5 @@
 	
 	"NOTIFICATION_CREATE_PROJECT": "Project {0} created",
 	"NOTIFICATION_CREATE_TEAM": "Team {0} created",
-	"NOTIFICATION_INVALID_DETAILS": "Invalid details"
+	"NOTIFICATION_INVALID_DETAILS": "Invalid credentials"
 }
