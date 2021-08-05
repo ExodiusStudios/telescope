@@ -40,7 +40,8 @@
 	"HOMEPAGE_SECTION_FOCUS": "Focus task",
 	"HOMEPAGE_SECTION_TEAMS_MEMBER": "Member",
 	"HOMEPAGE_SECTION_TEAMS_VISIT": "Visit team",
-	"HOMEPAGE_NO_PROJECTS": "You have not joined any projects yet!",
+	"HOMEPAGE_NO_PROJECTS_TITLE": "You have not joined any projects yet",
+	"HOMEPAGE_NO_PROJECTS_DESC": "Press the the button below to create your first project",
 	"HOMEPAGE_TEAM_NO_PROJECTS": "This team has no projects yet",
 
 	"VIEW_HOME": "Project overview",
