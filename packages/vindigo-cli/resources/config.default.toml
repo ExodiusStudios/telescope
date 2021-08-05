@@ -32,8 +32,8 @@ port = %DB_PORT%
 
 [smtp]
 enabled = false
-address = ""
 domain = ""
-user_name = ""
-password = ""
 port = 25
+email = "no-reply@example.com"
+password = ""
+sender_name = "%NAME%"

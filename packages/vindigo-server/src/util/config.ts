@@ -63,9 +63,9 @@ const defaultConfig: IServerConfig = {
 		enabled: false,
 		domain: '',
 		port: 25,
-		email: '',
+		email: 'no-reply@example.com',
 		password: '',
-		sender_name: ''
+		sender_name: 'Vindigo'
 	},
 	database: {
 		driver: 'mysql',
