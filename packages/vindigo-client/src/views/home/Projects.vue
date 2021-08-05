@@ -10,10 +10,10 @@
 						mdi mdi-auto-fix
 					</w-icon>
 					<div class="text-lg pt-4 font-semibold leading-snug">
-						{{ $t('HOMEPAGE_NO_PROJECTS') }}
+						{{ $t('HOMEPAGE_NO_PROJECTS_TITLE') }}
 					</div>
 					<div class="pb-5">
-						Maak een project aan om te beginnen!
+						{{ $t('HOMEPAGE_NO_PROJECTS_DESC') }}
 					</div>
 					<div>
 						<w-button
@@ -53,7 +53,7 @@ export default Vue.extend({
 <style lang="postcss">
 .your-projects__empty {
 	@apply flex flex-col items-center mt-4 pb-6 pt-5 text-white rounded-3xl;
-	@mixin emissive theme("colors.blue.500"), 0.85;
+	@mixin emissive theme("colors.blue.500"), 0.75;
 
 	background: linear-gradient(
 		135deg,
