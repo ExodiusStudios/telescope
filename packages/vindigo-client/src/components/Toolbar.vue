@@ -114,7 +114,7 @@
 			<template #activator="{ on }">
 				<w-button
 					v-wave
-					class="mr-0 text-accent-2 dark:text-gray-100"
+					class="mr-0 text-accent-2 dark:text-accent-1"
 					icon="mdi mdi-plus-circle"
 					to="#"
 					xl
