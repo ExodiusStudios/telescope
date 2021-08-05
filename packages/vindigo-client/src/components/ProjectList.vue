@@ -102,7 +102,7 @@ export default Vue.extend({
 }
 
 .project-tile {
-	@apply h-32 bg-[#DDE0EB] dark:bg-[#202127] rounded-xl p-4 col-span-12 laptop:col-span-6 desktop:col-span-3;
+	@apply h-32 bg-light-2 dark:bg-dark-2 rounded-xl p-4 col-span-12 laptop:col-span-6 desktop:col-span-3;
 
 	&__title {
 		@apply text-gray-700 dark:text-gray-200 font-bold;

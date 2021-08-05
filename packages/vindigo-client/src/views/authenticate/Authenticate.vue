@@ -26,7 +26,7 @@
 			>
 			<div
 				v-if="renderBoardName"
-				class="text-center font-semibold text-2xl text-[#5c5c5c] dark:text-[#999999] mb-6"
+				class="text-center font-semibold text-2xl text-gray-600 dark:text-gray-300 mb-6"
 			>
 				{{ boardName }}
 			</div>

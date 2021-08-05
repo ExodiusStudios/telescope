@@ -12,10 +12,22 @@ module.exports = {
 		extend: {
 			colors: {
 				'gray': colors.trueGray,
-				'gray-150': '#efefef',
-				'page-background': '#FAF8FE',
-				'page-foreground': '#ebe9ef',
-				'page-foreground-dark': '#262626'
+
+				'light': '#FFFFFF',
+				'light-1': '#FAF8FE',
+				'light-2': '#e1e4ee',
+				'light-3': '#e5e5e5',
+
+				'dark': '#0f0f0f',
+				'dark-1': '#171717',
+				'dark-2': '#262626',
+				'dark-3': "#2e2e2f",
+
+				'accent-1': '#8b5cf6',
+				'accent-2': '#6159eb',
+				'accent-3': '#4036b5',
+				'accent-4': '#2f3a41',
+				'accent-5': '#293238'
 			}
 		},
 		fontFamily: {

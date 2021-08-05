@@ -1,5 +1,5 @@
 <template>
-	<w-app class="min-h-screen bg-page-background dark:bg-gray-900 dark:text-gray-100">
+	<w-app class="min-h-screen bg-light-1 dark:bg-dark-1 dark:text-gray-100">
 		<template v-if="isReady">
 			<authenticate v-if="shouldAuth" />
 			<router-view v-else />
@@ -66,7 +66,7 @@ export default Vue.extend({
 
 <style lang="postcss">
 .loading-overlay {
-	@apply bg-page-background dark:bg-gray-900 h-screen fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center;
+	@apply bg-light-1 dark:bg-dark-1 h-screen fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center;
 
 	&__text {
 		@apply absolute text-lg left-0 top-36 right-0 text-center opacity-30 uppercase font-semibold dark:text-white;

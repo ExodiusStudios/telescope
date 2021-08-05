@@ -89,10 +89,10 @@ export default Vue.extend({
 	@apply flex justify-center;
 
 	&__btn {
-		@apply bg-[#D5D7DF] text-gray-900 font-semibold text-sm !important;
+		@apply bg-light-2 text-dark-2 dark:bg-dark-3 dark:text-light-1 font-semibold text-sm !important;
 
 		&--active {
-			@apply bg-purple-500 text-white !important;
+			@apply bg-accent-1 dark:bg-accent-1 text-light dark:text-light !important;
 		}
 	}
 }
