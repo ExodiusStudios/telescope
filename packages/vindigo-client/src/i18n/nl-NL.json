@@ -40,7 +40,8 @@
 	"HOMEPAGE_SECTION_FOCUS": "Aanbevolen taak",
 	"HOMEPAGE_SECTION_TEAMS_MEMBER": "Deelnemer",
 	"HOMEPAGE_SECTION_TEAMS_VISIT": "Bezoek team",
-	"HOMEPAGE_NO_PROJECTS": "Je bent nog geen lid van een project",
+	"HOMEPAGE_NO_PROJECTS_TITLE": "Je bent nog geen lid van een project",
+	"HOMEPAGE_NO_PROJECTS_DESC": "Druk op de onderstaande knop om je eerste project aan te maken",
 	"HOMEPAGE_TEAM_NO_PROJECTS": "Deze team is nog geen lid van een project",
 
 	"VIEW_HOME": "Project overzicht",
