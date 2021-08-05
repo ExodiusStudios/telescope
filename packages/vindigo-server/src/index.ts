@@ -3,6 +3,7 @@ import consola, { LogLevel } from "consola";
 import { DatabaseService } from "./database";
 import { ExtensionService } from "./extensions";
 import { HTTPService } from "./http";
+import { MailingService } from "./mailer";
 import ON_DEATH from 'death';
 import fs from 'fs';
 import { isProduction } from "./util/helpers";
@@ -44,6 +45,7 @@ if(!production) {
 // Define the services
 const extensions = new ExtensionService(config);
 const database = new DatabaseService(config);
+const mailer = new MailingService(config);
 const http = new HTTPService(config);
 
 export {
@@ -51,6 +53,7 @@ export {
 	extensions,
 	database,
 	logger,
+	mailer,
 	http
 };
 
