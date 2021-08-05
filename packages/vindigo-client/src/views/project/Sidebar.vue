@@ -1,7 +1,7 @@
 <template>
 	<nav class="sidebar relative w-14">
 		<div
-			class="sidebar__highlight rounded-r-lg absolute left-0 h-14 w-1 z-10 transition-all bg-[#14A7F4]"
+			class="sidebar__highlight"
 			:style="offsetActiveRoute"
 		/>
 		<ol class="sidebar__container">
@@ -11,7 +11,7 @@
 				:to="item.href"
 			>
 				<li
-					class="sidebar__item py-1 w-14 h-14 flex items-center justify-center cursor-pointer hover:bg-[#293238]"
+					class="sidebar__item"
 					@click="currentIndex = item.rank"
 				>
 					<w-icon xl class="text-white">
@@ -62,3 +62,17 @@ export default Vue.extend({
 	}
 });
 </script>
+
+<style lang="postcss">
+.sidebar {
+
+	&__highlight {
+		@apply rounded-r-lg absolute left-0 h-14 w-1 z-10 transition-all bg-[#14A7F4];
+	}
+
+	&__item {
+		@apply py-1 w-14 h-14 flex items-center justify-center cursor-pointer transition-colors hover:bg-accent-5;
+	}
+
+}
+</style>

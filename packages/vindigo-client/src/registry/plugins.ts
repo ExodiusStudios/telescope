@@ -32,6 +32,9 @@ export function registerPlugins() {
 			},
 			$config() {
 				return store.instance.state.config;
+			},
+			$isDark() {
+				return store.instance.state.isDark;
 			}
 		}
 	});

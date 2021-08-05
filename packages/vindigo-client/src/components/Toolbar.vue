@@ -33,7 +33,7 @@
 					class="rounded-lg overflow-hidden"
 					inner-icon-left="mdi mdi-magnify"
 					:placeholder="$t('TOOLBAR_SEARCH')"
-					bg-color="gray-200"
+					:bg-color="$isDark ? 'dark-3' : 'light-3'"
 					autocomplete="off"
 					color="gray-700"
 					name="search"
@@ -114,7 +114,7 @@
 			<template #activator="{ on }">
 				<w-button
 					v-wave
-					class="mr-0 text-indigo-600 dark:text-gray-100"
+					class="mr-0 text-accent-2 dark:text-gray-100"
 					icon="mdi mdi-plus-circle"
 					to="#"
 					xl
@@ -319,7 +319,7 @@
 					<w-button
 						v-wave
 						color="white"
-						bg-color="indigo-600"
+						bg-color="accent-2"
 						:loading="newProjectLoading"
 						:disabled="!newProjectName"
 						@click="createProject"
@@ -394,7 +394,7 @@
 					<w-button
 						v-wave
 						color="white"
-						bg-color="indigo-600"
+						bg-color="accent-2"
 						:loading="newTeamLoading"
 						:disabled="!newTeamName"
 						@click="createTeam"
@@ -670,7 +670,7 @@ export default Vue.extend({
 
 <style lang="postcss">
 .toolbar {
-	@apply flex items-center px-3 bg-white dark:bg-gray-800 h-14 sticky top-0 z-10 transition-shadow;
+	@apply flex items-center px-3 bg-light dark:bg-dark h-14 sticky top-0 z-10 transition-shadow;
 
 	&__waiter {
 		@apply z-20 rounded-none -translate-y-1 transition-transform;
@@ -681,10 +681,8 @@ export default Vue.extend({
 	}
 
 	&__divider {
-		background-color: #e1e1e1;
+		@apply bg-light-2 dark:bg-dark-2 h-10;
 		width: 2px;
-
-		@apply h-10;
 	}
 
 	&__search {
@@ -747,7 +745,7 @@ export default Vue.extend({
 	@apply flex;
 
 	&__add-btn {
-		@apply bg-indigo-600 w-12 h-12 m-1 rounded-full ring-4 ring-indigo-600 ring-opacity-40
+		@apply bg-accent-2 w-12 h-12 m-1 rounded-full ring-4 ring-accent-2 ring-opacity-40
 		flex justify-center items-center text-white cursor-pointer;
 	}
 }

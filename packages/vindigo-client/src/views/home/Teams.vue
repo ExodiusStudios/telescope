@@ -8,7 +8,7 @@
 			:key="team.id"
 			class="your-teams__team-row mt-4 mb-14"
 		>
-			<div class="your-teams__toolbar p-2 px-3 flex flex-row items-center bg-page-foreground dark:bg-page-foreground-dark rounded-lg">
+			<div class="your-teams__toolbar p-2 px-3 flex flex-row items-center bg-light-2 dark:bg-dark-2 rounded-lg">
 				<w-image
 					:src="team.logoImage"
 					class="rounded-lg overflow-hidden"
@@ -26,7 +26,7 @@
 				<spacer />
 				<w-button
 					outline
-					color="indigo-600"
+					color="accent-2"
 					:route="team.teamUrl"
 				>
 					{{ $t('HOMEPAGE_SECTION_TEAMS_VISIT') }}

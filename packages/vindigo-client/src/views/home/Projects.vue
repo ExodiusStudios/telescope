@@ -19,7 +19,7 @@
 						<w-button
 							class="ml-0"
 							color="white"
-							bg-color="indigo-700"
+							bg-color="accent-3"
 							@click="$emit('create')"
 						>
 							{{ $t('TOOLBAR_CREATE_PROJECT') }}

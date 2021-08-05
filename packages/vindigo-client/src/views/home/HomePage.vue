@@ -2,7 +2,7 @@
 	<section ref="pageView" class="home-page">
 		<toolbar ref="toolbar" class="pl-0" />
 
-		<div class="h-80 laptop:h-72 -mt-14 bg-white dark:bg-gray-800 flex items-center justify-center">
+		<div class="h-80 laptop:h-72 -mt-14 bg-light dark:bg-dark flex items-center justify-center">
 			<!-- Display just "Welcome" when user is signed out -->
 			<avatar
 				:size="80"
@@ -94,7 +94,7 @@ export default Vue.extend({
 		next((vm: any) => {
 			vm.projects = projects;
 			vm.starred = [];
-			vm.teams = teams.filter((team: any) => team.projects.length);
+			vm.teams = teams;
 		});
 	},
 

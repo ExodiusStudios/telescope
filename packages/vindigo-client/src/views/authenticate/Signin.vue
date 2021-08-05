@@ -41,7 +41,7 @@
 				round
 				class="w-full h-9 auth-box__button"
 				color="white"
-				bg-color="indigo-700"
+				bg-color="accent-3"
 				type="submit"
 				:loading="loading"
 				@click="authenticate"

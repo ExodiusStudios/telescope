@@ -45,4 +45,10 @@
 ::-webkit-scrollbar-thumb:active {
 	background-color: #445e77;
 }
+
+/* Caret color */
+
+.dark {
+	@apply caret-gray-400;
+}
 </style>

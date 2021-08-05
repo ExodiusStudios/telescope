@@ -1,6 +1,6 @@
 <template>
 	<section class="project-page flex h-screen">
-		<sidebar class="bg-[#2f3a41]" />
+		<sidebar class="bg-accent-4" />
 		<section class="flex flex-col flex-grow">
 			<toolbar class="project-toolbar pl-0">
 				<w-button

@@ -3,7 +3,7 @@
 		<section-title icon="mdi mdi-chart-line-variant">
 			{{ $t('HOMEPAGE_SECTION_ACTIVITY') }}
 		</section-title>
-		<div class="activity-card__content flex flex-col rounded-3xl p-4 bg-purple-500 mt-2 h-52">
+		<div class="activity-card__content flex flex-col rounded-3xl p-4 bg-accent-1 mt-2 h-52">
 			<div class="text-white text-5xl font-light text-right">
 				{{ timeStr }}
 			</div>
