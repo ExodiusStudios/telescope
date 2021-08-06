@@ -8,6 +8,12 @@ const languages: Language[] = [
 		icon: 'us'
 	},
 	{
+		id: 'en-PS',
+		name: 'Pirate Speak (English)',
+		dayjs: 'en',
+		icon: 'us'
+	},
+	{
 		id: 'nl-NL',
 		name: 'Dutch',
 		dayjs: 'nl',
