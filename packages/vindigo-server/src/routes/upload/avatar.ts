@@ -1,10 +1,9 @@
-import { existsSync, mkdirSync } from "fs";
-
 import { ApiError } from "../../util/errors";
 import { Controller } from "../controller";
 import { UploadedFile } from "express-fileupload";
-import { join } from "path";
-import { last } from "lodash";
+import { bucketPath, saveToBucket } from "../../util/helpers";
+import { basename, dirname, join } from "path";
+import { fstat, readdirSync, rmdirSync, unlink, unlinkSync } from "fs";
 
 export default class UploadAvatarController extends Controller {
 
@@ -13,27 +12,31 @@ export default class UploadAvatarController extends Controller {
 	}
 
 	public async handle() {
-		if(!this.req.files) {
+		if(!this.req.files || !this.req.files.file) {
 			return new ApiError('invalid-request', 'Invalid avatar');
 		}
 
-		const file = this.req.files.file as UploadedFile;
-		const md5 = file.md5;
+		// delete old profile picture if they have one
+		const old = this.user.avatar
 
-		const bucket = md5.substr(0, 2);
-		const extension = last(file.name.split(/\./g));
-		const fileName = `${md5}.${extension}`;
+		if(old != undefined) {
+			const oldFile = basename(old);
+			const oldPath = join('./data/public/avatar', `${oldFile.substr(0, 2)}`, oldFile);
+			const oldDir = dirname(oldPath);
 
-		const bucketLocation = join('data/public/avatar', bucket);
-		const fileLocation = join(bucketLocation, fileName);
+			unlinkSync(oldPath);
 
-		if(!existsSync(bucketLocation)) {
-			mkdirSync(bucketLocation, { recursive: true });
+			// delete folder if its now empty
+			if(readdirSync(oldDir).length < 1) {
+				rmdirSync(oldDir);
+			}
 		}
-		
-		this.user.avatar = join('/data/avatar', bucket, fileName);
 
-		await file.mv(fileLocation);
+		const file = this.req.files.file as UploadedFile;
+		await saveToBucket('./data/public/avatar', file);
+		
+		this.user.avatar = join('/data/avatar', bucketPath(file));
+
 		await this.user.save();
 
 		return Promise.resolve('handling avatar');
