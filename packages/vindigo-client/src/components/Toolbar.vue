@@ -214,6 +214,27 @@
 						{{ $t("YOUR_ACCOUNT_ACTIVITY") }}
 					</router-link>
 					<w-divider />
+					<router-link
+						v-show="user.role == 'admin'"
+						to="/admin"
+						class="list-menu__item"
+						tag="div"
+					>
+						<w-icon size="1.1rem">
+							mdi mdi-gavel
+						</w-icon>
+						{{ $t("YOUR_ACCOUNT_ADMIN") }}
+					</router-link>
+					<router-link
+						to="/settings"
+						class="list-menu__item"
+						tag="div"
+					>
+						<w-icon size="1.1rem">
+							mdi mdi-cog-outline
+						</w-icon>
+						{{ $t("YOUR_ACCOUNT_SETTINGS") }}
+					</router-link>
 					<a
 						href="https://github.com/ExodiusStudios/vindigo"
 						class="list-menu__item block"
@@ -227,16 +248,6 @@
 							mdi mdi-open-in-new
 						</w-icon>
 					</a>
-					<router-link
-						to="/settings"
-						class="list-menu__item"
-						tag="div"
-					>
-						<w-icon size="1.1rem">
-							mdi mdi-cog-outline
-						</w-icon>
-						{{ $t("YOUR_ACCOUNT_SETTINGS") }}
-					</router-link>
 					<w-divider />
 					<div
 						class="list-menu__item text-red-400"
@@ -413,6 +424,7 @@ import { gql } from "@apollo/client/core";
 import { MENU_DIVIDER, ToolbarCreationItem } from "../helpers";
 import { debounce, sum, values } from "lodash";
 import { mapState } from "vuex";
+import { Profile } from "../model/profile";
 
 interface SearchInterface {
 	projects: object[];
@@ -453,11 +465,14 @@ export default Vue.extend({
 	computed: {
 		...mapState(["isWaiting"]),
 
+		user(): Optional<Profile> {
+			return this.$vuex.state.profile;
+		},
 		userID(): Optional<Number> {
-			return this.$vuex.state.profile?.id;
+			return this.user?.id;
 		},
 		userName(): Optional<string> {
-			return this.$vuex.state.profile?.fullName;
+			return this.user?.fullName;
 		},
 		waiterClass(): any {
 			return {

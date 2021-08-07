@@ -99,6 +99,9 @@ type Profile {
 
     "The full URL of the users profile"
     profileUrl: String!
+
+    "The role of the user"
+    role: String!
 }
 
 """
