@@ -9,4 +9,5 @@ export interface Profile {
 	firstName: string
 	email?: string
 	username: string
+	role: string
 }

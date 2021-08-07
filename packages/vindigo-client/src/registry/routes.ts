@@ -1,3 +1,4 @@
+import AdminHome from '../views/admin/AdminHome.vue';
 import ExplorerPage from '../views/explorer/ExplorerPage.vue';
 import HomePage from '../views/home/HomePage.vue';
 import KanbanPage from '../views/project/kanban/KanbanOverview.vue';
@@ -71,6 +72,15 @@ export function registerRoutes() {
 		path: '/settings',
 		name: 'Profile Settings',
 		component: SettingsPage
+	});
+
+	routing.defineRoute({
+		path: '/admin',
+		name: 'Admin Dashboard',
+		component: AdminHome,
+		meta: {
+			title: 'Admin Dashboard'
+		}
 	});
 
 	routing.defineRoute({
