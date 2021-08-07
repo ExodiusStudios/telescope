@@ -2,7 +2,7 @@ import { GraphQLResolvers, ResolverContext } from '../../../http';
 import { compare, hash } from 'bcrypt';
 import { fetchProfileByEmail, fetchProfileByIdentity, fetchProfileByUsername, generateUsername } from '../fetchers/profile';
 
-import { ApiError } from '../../../util/errors';
+import { ApiError, MissingSessionError } from '../../../util/errors';
 import { User } from '../../../models/user';
 import { logger } from '../../..';
 
@@ -86,6 +86,34 @@ export default {
 		sessionSignIn(ctx, details.remember, user);
 		logger.info(`Authenticated ${user.username}`);
 		return user;
+	},
+	updateProfile: async (_, { details }, ctx) => {
+		
+		if(!ctx.user) {
+			throw new MissingSessionError();
+		}
+		
+		if(details.fullname) {
+			ctx.user.name = details.fullname;
+		}
+
+		if(details.email) {
+			ctx.user.email = details.email;
+		}
+
+		if(details.username) {
+			ctx.user.username = details.username;
+		}
+
+		if(details.bio) {
+			//ctx.user.bio = details.bio;
+		}
+
+		if(details.website) {
+			//ctx.user.website = details.website;
+		}
+
+		await ctx.user.save();
 	},
 	signOut: async (_, _args, ctx) => {
 		return new Promise((resolve) => {
