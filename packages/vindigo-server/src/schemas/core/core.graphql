@@ -24,6 +24,9 @@ type Mutation {
     "Sign in with the given account details"
     authenticate(details: UserAuthentication): Profile
 
+    "Updates a user"
+    updateProfile(details: ProfileUpdate): Profile
+
     "Sign out and return if this was successful"
     signOut: Boolean
 }
@@ -49,6 +52,17 @@ input UserAuthentication {
     identity: String!
     password: String!
     remember: Boolean!
+}
+
+"""
+The details required to update a existing user
+"""
+input ProfileUpdate {
+    fullname: String
+    email: String
+    username: String
+    bio: String
+    website: String
 }
 
 """
@@ -100,8 +114,14 @@ type Profile {
     "The full URL of the users profile"
     profileUrl: String!
 
+    "The bio of the users profile"
+    bio: String
+
+    "The website of the user"
+    website: String
+
     "The role of the user"
-    role: String!
+    role: String
 }
 
 """

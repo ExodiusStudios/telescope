@@ -11,6 +11,8 @@ export const profileFragment = gql`
 		username
 		fullName
 		firstName
+		bio
+		website
 		role
 	}
 `;
