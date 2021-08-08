@@ -17,6 +17,7 @@ model User {
     name       String
     role       String
     language   String
+    website    String?
     createdAt  DateTime
     lastSeenAt DateTime
     isEnabled  Boolean

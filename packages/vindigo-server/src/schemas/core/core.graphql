@@ -121,7 +121,7 @@ type Profile {
     website: String
 
     "The role of the user"
-    role: String
+    role: String!
 
     "The date the user was created"
     createdAt: String!
