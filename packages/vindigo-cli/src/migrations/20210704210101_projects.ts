@@ -8,6 +8,7 @@ exports.up = async function({schema}: Knex) {
 			table.increments();
 			table.string('name');
 			table.text('description');
+			table.text('readme');
 			table.text('coverImage');
 			table.text('backgroundImage');
 			table.boolean('isVisible');
@@ -28,7 +29,8 @@ exports.up = async function({schema}: Knex) {
 			table.increments();
 			table.string('name');
 			table.text('description');
-			table.text('logoImage');
+			table.string('logoImage');
+			table.string('website');
 			table.timestamp('createdAt');
 
 			table.integer('creatorId')
@@ -45,11 +47,28 @@ exports.up = async function({schema}: Knex) {
 			table.timestamp('lastModifiedAt');
 			table.string('summary');
 			table.text('description');
+			table.boolean('isArchived').defaultTo(false);
+			table.dateTime('startTime');
+			table.dateTime('endTime');
 
 			table.integer('parentId')
 				.unsigned()
 				.references('tasks.id')
 				.onDelete('SET NULL');
+		})
+
+		// ANCHOR Project labels
+		.createTable('labels', (table) => {
+			table.increments();
+			table.string('color');
+			table.string('title');
+			table.integer('orderNumber');
+
+			table.integer('projectId')
+				.unsigned()
+				.notNullable()
+				.references('users.id')
+				.onDelete('CASCADE');
 		})
 
 		// ANCHOR Project invited teams table
@@ -105,6 +124,59 @@ exports.up = async function({schema}: Knex) {
 				.notNullable()
 				.references('teams.id')
 				.onDelete('CASCADE');
+		})
+
+		// ANCHOR Task members table
+		.createTable('task_members', (table) => {
+			table.increments();
+			
+			table.integer('memberId')
+				.unsigned()
+				.notNullable()
+				.references('users.id')
+				.onDelete('CASCADE');
+			
+			table.integer('taskId')
+				.unsigned()
+				.notNullable()
+				.references('tasks.id')
+				.onDelete('CASCADE');
+			
+			table.timestamp('joinedAt');
+		})
+
+		// ANCHOR Task watchers table
+		.createTable('task_watchers', (table) => {
+			table.increments();
+			
+			table.integer('memberId')
+				.unsigned()
+				.notNullable()
+				.references('users.id')
+				.onDelete('CASCADE');
+			
+			table.integer('taskId')
+				.unsigned()
+				.notNullable()
+				.references('tasks.id')
+				.onDelete('CASCADE');
+		})
+
+		// ANCHOR Assigned task labels
+		.createTable('task_labels', (table) => {
+			table.increments();
+			
+			table.integer('taskId')
+				.unsigned()
+				.notNullable()
+				.references('tasks.id')
+				.onDelete('CASCADE');
+			
+			table.integer('labelId')
+				.unsigned()
+				.notNullable()
+				.references('labels.id')
+				.onDelete('CASCADE');
 		});
 };
 
@@ -113,6 +185,10 @@ exports.down = async function({schema}: Knex) {
 		.dropTable('team_members')
 		.dropTable('project_members')
 		.dropTable('project_teams')
+		.dropTable('task_members')
+		.dropTable('task_watchers')
+		.dropTable('task_labels')
+		.dropTable('labels')
 		.dropTable('teams')
 		.dropTable('tasks')
 		.dropTable('projects');

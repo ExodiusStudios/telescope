@@ -10,6 +10,7 @@ exports.up = async ({ schema }: Knex) => {
 		table.string('bio');
 		table.string('name');
 		table.string('role');
+		table.string('website');
 		table.string('language');
 		table.timestamp('createdAt');
 		table.timestamp('lastSeenAt');

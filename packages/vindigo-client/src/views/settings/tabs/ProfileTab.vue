@@ -12,7 +12,7 @@
 					<img
 						v-if="preview != ''"
 						class="block picture-upload__image" 
-						:src="preview"
+						:src="preview || require('/assets/avatar-placeholder.svg')"
 					>
 					<file-upload
 						class="mt-5 w-full"
