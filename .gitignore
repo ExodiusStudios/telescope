@@ -5,6 +5,7 @@ node_modules
 
 # Distribution files
 dist/
+dist-temp/
 
 # Data directory
 data/
