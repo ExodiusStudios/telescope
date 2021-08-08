@@ -5,9 +5,13 @@ node_modules
 
 # Distribution files
 dist/
+dist-temp/
 
 # Data directory
 data/
+
+# Prisma directory (generated)
+prisma/
 
 # Log files
 npm-debug.log*
