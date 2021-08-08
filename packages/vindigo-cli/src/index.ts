@@ -77,11 +77,7 @@ yargs
 	})
 	.command({
 		command: 'migrate:apply',
-		describe: 'Apply the next pending migration',
-		builder: () => yargs.option('all', {
-			alias: 'A',
-			describe: 'Apply all outstanding migrations'
-		}),
+		describe: 'Apply all pending migration',
 		handler: handleMigrateUp
 	})
 	.command({
