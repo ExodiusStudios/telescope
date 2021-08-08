@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <rect x="0" y="0" width="100" height="100" style="fill:rgb(229,229,229);"/>
+    <g id="camera.svg" transform="matrix(2.54145,0,0,2.54145,50,50)">
+        <g opacity="0.11">
+            <g transform="matrix(1,0,0,1,-12,-12)">
+                <path d="M4,4L7,4L9,2L15,2L17,4L20,4C21.097,4 22,4.903 22,6L22,18C22,19.097 21.097,20 20,20L4,20C2.903,20 2,19.097 2,18L2,6C2,4.903 2.903,4 4,4M12,7C9.257,7 7,9.257 7,12C7,14.743 9.257,17 12,17C14.743,17 17,14.743 17,12C17,9.257 14.743,7 12,7M12,9C13.646,9 15,10.354 15,12C15,13.646 13.646,15 12,15C10.354,15 9,13.646 9,12C9,10.354 10.354,9 12,9Z" style="fill-rule:nonzero;"/>
+            </g>
+        </g>
+    </g>
+</svg>
