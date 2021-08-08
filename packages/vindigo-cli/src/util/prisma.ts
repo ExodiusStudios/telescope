@@ -60,7 +60,7 @@ function generateDetails({ database }: IServerConfig): ConnectionDetails {
 			break;
 		}
 		case 'sqlite': {
-			connection = `file:./data/${database.database}`;
+			connection = `file:../${database.database}`;
 			provider = 'sqlite';
 			break;
 		}
