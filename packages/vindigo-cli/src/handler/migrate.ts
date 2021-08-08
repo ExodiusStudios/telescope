@@ -35,15 +35,19 @@ export async function handleMigrateUp(args: any) {
 
 	if(list[1].length < 1) {
 		consola.info('Migrations already up-to-date');
-	} else if(args.all) {
-		await migrator.latest();
-
-		consola.info('Executed all remaining migrations');
 	} else {
-		const result = await migrator.up() as any;
-		const name = result[1][0];
+		consola.info('Applying migrations...');
+		const then = Date.now();
 
-		consola.info(chalk`Applied {greenBright ${name}}`);
+
+		await migrator.latest();
+		await generatePrisma();
+
+		const current = await getCurrent(migrator);
+		const diff = Date.now() - then;
+
+		consola.success(`Migrations executed (${diff}ms)`);
+		consola.info(chalk`Now at {greenBright ${current}}`);
 	}
 
 	process.exit(0);

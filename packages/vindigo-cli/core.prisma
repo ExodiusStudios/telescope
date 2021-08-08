@@ -25,6 +25,8 @@ model User {
     projects   ProjectMember[]
     teams      TeamMember[]
     created    Project[]
+    tasks      TaskMember[]
+    watching   TaskWatcher[]
 
     @@map(name: "users")
 }
@@ -32,6 +34,7 @@ model User {
 model Project {
     id              Int             @id @default(autoincrement())
     name            String
+    readme          String?
     description     String?
     coverImage      String?
     backgroundImage String?
@@ -44,6 +47,7 @@ model Project {
     creator         User            @relation(fields: [creatorId], references: [id])
     members         ProjectMember[]
     teams           ProjectTeam[]
+    labels          Label[]
 
     @@map("projects")
 }
@@ -70,17 +74,66 @@ model ProjectTeam {
     @@map(name: "project_teams")
 }
 
+model Label {
+    id          Int         @id @default(autoincrement())
+    color       String
+    title       String
+    orderNumber Int
+    projectId   Int
+    project     Project     @relation(fields: [projectId], references: [id])
+    tasks       TaskLabel[]
+
+    @@map("labels")
+}
+
 model Task {
-    id             Int      @id @default(autoincrement())
+    id             Int           @id @default(autoincrement())
     parentId       Int?
     createdAt      DateTime
     lastModifiedAt DateTime
     summary        String
     description    String?
-    parent         Task?    @relation("parent", fields: [parentId], references: [id])
-    children       Task[]   @relation("parent")
+    isArchived     Boolean
+    startTime      DateTime?
+    endTime        DateTime?
+    parent         Task?         @relation("parent", fields: [parentId], references: [id])
+    children       Task[]        @relation("parent")
+    members        TaskMember[]
+    watchers       TaskWatcher[]
+    labels         TaskLabel[]
 
     @@map(name: "tasks")
+}
+
+model TaskMember {
+    id       Int      @id @default(autoincrement())
+    memberId Int
+    taskId   Int
+    joinedAt DateTime
+    member   User     @relation(fields: [memberId], references: [id])
+    task     Task     @relation(fields: [taskId], references: [id])
+
+    @@map("task_members")
+}
+
+model TaskWatcher {
+    id       Int  @id @default(autoincrement())
+    memberId Int
+    taskId   Int
+    member   User @relation(fields: [memberId], references: [id])
+    task     Task @relation(fields: [taskId], references: [id])
+
+    @@map("task_watchers")
+}
+
+model TaskLabel {
+    id      Int   @id @default(autoincrement())
+    taskId  Int
+    labelId Int
+    task    Task  @relation(fields: [taskId], references: [id])
+    label   Label @relation(fields: [labelId], references: [id])
+
+    @@map("task_labels")
 }
 
 model TeamMember {
