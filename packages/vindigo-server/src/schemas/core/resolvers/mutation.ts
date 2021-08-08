@@ -107,11 +107,11 @@ export default {
 		}
 
 		if(details.bio) {
-			//update.bio = details.bio;
+			update.bio = details.bio;
 		}
 
 		if(details.website) {
-			//update.website = details.website;
+			update.website = details.website;
 		}
 
 		await database.user.update({
