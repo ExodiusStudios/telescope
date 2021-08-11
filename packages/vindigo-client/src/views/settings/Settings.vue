@@ -65,11 +65,9 @@ import Avatar from "../../components/Avatar.vue";
 export default Vue.extend({
 	name: "VindigoSettings",
 	components: { Avatar },
-	data: () => ({
-		
-	}),
+
 	computed: {
-		settingTabs() {
+		settingTabs(): any[] {
 			return [
 				{ 
 					title: this.$t("SETTINGS_TAB_PROFILE"), 

@@ -1,6 +1,10 @@
 <template>
-	<section class="project-page flex h-screen">
-		<sidebar class="bg-accent-4" />
+	<section ref="pageView" class="project-page flex min-h-screen">
+		<sidebar
+			:project="project"
+			class="bg-accent-4"
+		/>
+
 		<section class="flex flex-col flex-grow">
 			<toolbar class="project-toolbar pl-0">
 				<w-menu
@@ -150,7 +154,7 @@
 			</main>
 		</section>
 
-		<settings
+		<settings-dialog
 			v-model="settingsDialog"
 			:project="project"
 		/>
@@ -163,7 +167,7 @@ import Vue from "vue";
 import { parseSlug, updateTitle } from '../../util';
 import { api } from '../..';
 import gql from 'graphql-tag';
-import Settings from './Settings.vue';
+import SettingsDialog from './settings/SettingsDialog.vue';
 import { profileFragment, teamFragment } from '../../fragments';
 
 async function fetchProjectData(id: number) {
@@ -173,9 +177,11 @@ async function fetchProjectData(id: number) {
 				id
 				name
 				readme
+				readmeHtml
 				accessLevel
 				coverImage
 				projectUrl
+				accentColor
 				members {
 					member {
 						...AllProfileFields
@@ -200,7 +206,7 @@ export default Vue.extend({
 
 	components: {
 		Sidebar,
-		Settings
+		SettingsDialog
 	},
 
 	async beforeRouteEnter(to, _from, next) {

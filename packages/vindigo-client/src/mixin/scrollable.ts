@@ -1,34 +1,30 @@
-import { Optional } from '../typings/types';
 import Vue from 'vue';
 
 /**
  * Create a scrollable mixin that sets the `isScrolling` field
  * when the given ref element is scrolled.
  */
-export const Scrollable = Vue.extend({
-	name: 'Scrollable',
-
-	data: () => ({
-		isScrolling: false,
-		scrollView: null as Optional<Element>
-	}),
-
-	mounted() {
-		this.scrollView = this.getScrollView();
-		this.scrollView.addEventListener('scroll', this.computeScrolling);
-		this.computeScrolling();
-	},
-
-	beforeDestroy() {
-		this.scrollView?.removeEventListener('scroll', this.computeScrolling);
-	},
-
-	methods: {
-		getScrollView(): Element {
-			throw new Error('getScrollView()');	
+export const Scrollable = (source: any, element: Element = source) => {
+	return Vue.extend({
+		name: 'Scrollable',
+	
+		data: () => ({
+			isScrolling: false
+		}),
+	
+		mounted() {
+			source.addEventListener('scroll', this.computeScrolling);
+			this.computeScrolling();
 		},
-		computeScrolling() {
-			this.isScrolling = (this.scrollView?.scrollTop ?? 0) > 0;
+	
+		beforeDestroy() {
+			source.removeEventListener('scroll', this.computeScrolling);
+		},
+	
+		methods: {
+			computeScrolling() {
+				this.isScrolling = (element.scrollTop ?? 0) > 0;
+			}
 		}
-	}
-});
+	});
+};

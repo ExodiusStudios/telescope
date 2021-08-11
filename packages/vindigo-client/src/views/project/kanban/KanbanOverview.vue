@@ -1,7 +1,11 @@
 <template>
 	<!-- TODO Replace max-width calc -->
 	<div class="kanban-page" style="max-width: calc(100vw - 56px);">
-		<div class="kanban-page__header" />
+		<div
+			class="kanban-page__header"
+			:style="listHeaderStyle"
+		/>
+		
 		<draggable
 			v-model="headers"
 			class="kanban-page__grid"
@@ -9,7 +13,7 @@
 			:animation="250"
 		>
 			<div
-				v-for="header in headers" :key="header.title"
+				v-for="(header, idx) in headers" :key="header.title"
 				class="kanban-item"
 			>
 				<div class="kanban-item__header">
@@ -29,7 +33,10 @@
 							mdi mdi-chevron-down
 						</w-icon>
 					</div>
-					<div v-if="index !== headers.length - 1" class="absolute right-0 top-[4px] h-[40px] w-[2px] bg-[rgba(255,255,255,0.4)]" />
+					<div
+						v-if="idx < headers.length - 1"
+						class="absolute right-0 top-[4px] h-[40px] w-[2px] bg-[rgba(255,255,255,0.4)]"
+					/>
 				</div>
 				<div class="kanban-item__body" />
 			</div>
@@ -43,6 +50,13 @@ import Vue from 'vue';
 export default Vue.extend({
 	name: 'KanbanOverview',
 
+	props: {
+		project: {
+			required: true,
+			type: Object
+		}
+	},
+
 	data: () => ({
 		headers: [
 			{ title: 'Completed', icon: 'mdi-check', order: 0, items: [] },
@@ -51,9 +65,16 @@ export default Vue.extend({
 		]
 	}),
 
+	computed: {
+		listHeaderStyle(): any {
+			return {
+				backgroundColor: this.project.accentColor
+			};
+		}
+	},
+
 	methods: {
 		test() {
-			alert('KEENUS');
 			console.log(this);
 		}
 	}
@@ -65,7 +86,7 @@ export default Vue.extend({
 	@apply h-full relative;
 
 	&__header {
-		@apply h-12 bg-[#14A7F4] inset-x-0 top-0 absolute;
+		@apply h-12 inset-x-0 top-0 absolute;
 	}
 
 	&__grid {

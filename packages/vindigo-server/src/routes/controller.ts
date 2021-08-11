@@ -101,7 +101,7 @@ export abstract class Controller {
 			response.success = false;
 			response.data = {
 				message: value.message
-			}
+			};
 		}
 
 		this.res.json(response);

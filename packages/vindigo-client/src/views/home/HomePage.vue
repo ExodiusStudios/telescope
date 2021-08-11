@@ -1,5 +1,5 @@
 <template>
-	<section ref="pageView" class="home-page">
+	<section class="home-page">
 		<toolbar ref="toolbar" class="pl-0" />
 
 		<div class="h-80 laptop:h-72 -mt-14 bg-light dark:bg-dark flex items-center justify-center">
@@ -28,6 +28,7 @@
 
 				<projects-view
 					:projects="projects"
+					style="min-height: 100vh"
 					@create="$refs.toolbar.openProjectCreation()"
 				/>
 				
@@ -108,18 +109,6 @@ export default Vue.extend({
 		firstName(): Optional<string> {
 			return this.$vuex.state.profile?.firstName;
 		}
-	},
-
-	methods: {
-		getScrollView() {
-			return this.$refs.pageView;
-		}
 	}
 });
 </script>
-
-<style lang="postcss">
-.home-page {
-	@apply overflow-y-scroll h-screen;
-}
-</style>

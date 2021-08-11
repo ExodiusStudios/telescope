@@ -1,4 +1,4 @@
-import { ApiError, MissingSessionError } from '../../../util/errors';
+import { ApiError, InvalidArgumentError, MissingSessionError } from '../../../util/errors';
 import { GraphQLResolvers, ResolverContext } from '../../../http';
 import { Prisma, User } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
@@ -94,27 +94,41 @@ export default {
 
 		const update: Prisma.UserUpdateInput = {};
 		
-		if(details.fullname) {
+		if(details.fullname !== undefined) {
+			if(!details.fullname.length) {
+				throw new InvalidArgumentError('name cannot be empty');
+			}
+			
 			update.name = details.fullname;
 		}
 
-		if(details.email) {
+		if(details.email !== undefined) {
+			if(!details.email.length) {
+				throw new InvalidArgumentError('email cannot be empty');
+			}
+
 			update.email = details.email;
 		}
 
-		if(details.username) {
+		if(details.username !== undefined) {
+			if(!details.username.length) {
+				throw new InvalidArgumentError('username cannot be empty');
+			}
+			
+			// TODO Check for username existence
+
 			update.username = details.username;
 		}
 
-		if(details.bio) {
-			update.bio = details.bio;
+		if(details.bio !== undefined) {
+			update.bio = details.bio || null;
 		}
 
-		if(details.website) {
-			update.website = details.website;
+		if(details.website !== undefined) {
+			update.website = details.website || null;
 		}
 
-		await database.user.update({
+		return await database.user.update({
 			where: {
 				id: ctx.user.id
 			},

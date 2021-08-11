@@ -3,6 +3,8 @@ import { MissingSessionError, NotImplementedError } from "../../../util/errors";
 import { GraphQLResolvers } from "../../../http";
 import { Prisma } from "@prisma/client";
 import { database } from "../../..";
+import { fetchProjectById } from "../fetchers/project";
+import { fetchTaskById } from "../fetchers/task";
 import { parseTakeSize } from "../../../util/http";
 
 export default {
@@ -56,18 +58,10 @@ export default {
 			take: parseTakeSize(take, 50)
 		});
 	},
-	project: async (_, { id }, _ctx) => {
-		return database.project.findUnique({
-			where: {
-				id: id
-			}
-		});
+	project: async (_, { id }) => {
+		return fetchProjectById(id);
 	},
 	task: async (_, { id }) => {
-		return database.task.findUnique({
-			where: {
-				id: id
-			}
-		});
+		return fetchTaskById(id);
 	}
 } as GraphQLResolvers;
