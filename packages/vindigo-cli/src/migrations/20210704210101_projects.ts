@@ -9,6 +9,8 @@ exports.up = async function({schema}: Knex) {
 			table.string('name');
 			table.text('description');
 			table.text('readme');
+			table.text('readmeHtml');
+			table.string('accentColor', 7);
 			table.text('coverImage');
 			table.text('backgroundImage');
 			table.boolean('isVisible');

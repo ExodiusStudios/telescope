@@ -20,8 +20,11 @@ extend type Mutation {
 	"Create a new project with given details"
 	createProject(details: ProjectCreationInput!): Project!
 
-	"Delete the project with the given id"
+	"Delete the project with the given id - TODO Replace with close project"
 	deleteProject(id: Int): Project!
+
+	"Updates managemental settings about a project"
+    updateProject(id: Int, details: ProjectUpdate): Project!
 	
 }
 
@@ -35,6 +38,16 @@ input ProjectCreationInput {
 }
 
 """
+The details required to update a project
+"""
+input ProjectUpdate {
+    name: String
+    readme: String
+    description: String
+    coverImage: String
+}
+
+"""
 Projects are the container in which tasks
 are created, managed, and modified. Projects
 are always owned by a specific user, while other
@@ -45,6 +58,8 @@ type Project {
 	slug: String!
 	name: String!
 	readme: String
+	readmeHtml: String
+	accentColor: String!
 	accessLevel: String!
 	createdAt: String!
 	lastModifiedAt: String!

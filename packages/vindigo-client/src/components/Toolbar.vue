@@ -433,7 +433,10 @@ interface SearchInterface {
 
 export default Vue.extend({
 	name: "Toolbar",
-	mixins: [Scrollable],
+
+	mixins: [
+		Scrollable(window, document.documentElement)
+	],
 
 	data: () => ({
 		MENU_DIVIDER,

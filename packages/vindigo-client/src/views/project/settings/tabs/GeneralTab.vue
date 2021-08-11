@@ -1,34 +1,5 @@
 <template>
-	<w-dialog
-		:value="value"
-		dialog-class="rounded-xl"
-		width="750"
-		@input="$emit('input', $event)"
-	>
-		<section-title icon="mdi mdi-cog">
-			Project Settings
-
-			<w-tag
-				class="ml-2 h-6"
-				bg-color="accent-1"
-				color="white"
-			>
-				{{ project.name }}
-			</w-tag>
-		</section-title>
-
-		<div class="my-4">
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, iste harum libero, esse repellendus non qui architecto vitae dolores ad quibusdam quisquam nemo quidem aliquid laborum veritatis? Cumque, modi illum.
-		</div>
-
-		<div class="my-4">
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, iste harum libero, esse repellendus non qui architecto vitae dolores ad quibusdam quisquam nemo quidem aliquid laborum veritatis? Cumque, modi illum.
-		</div>
-
-		<div class="my-4">
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, iste harum libero, esse repellendus non qui architecto vitae dolores ad quibusdam quisquam nemo quidem aliquid laborum veritatis? Cumque, modi illum.
-		</div>
-
+	<div>
 		<w-button
 			v-wave
 			class="mx-0 text-red-400"
@@ -87,18 +58,17 @@
 				</w-button>
 			</div>
 		</w-dialog>
-	</w-dialog>
+	</div>
 </template>
 
 <script lang="ts">
-import { gql } from '@apollo/client/core';
 import Vue from 'vue';
-import { api } from '../..';
-
+import gql from 'graphql-tag';
+import { api } from '../../../..';
 export default Vue.extend({
-	name: 'ProjectSettings',
+	name: 'GeneralTab',
 
-	props: ['value', 'project'],
+	props: ['project'],
 
 	data: () => ({
 		deletionDialog: false,

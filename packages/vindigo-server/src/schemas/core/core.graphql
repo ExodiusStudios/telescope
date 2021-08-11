@@ -25,7 +25,7 @@ type Mutation {
     authenticate(details: UserAuthentication): Profile
 
     "Updates a user"
-    updateProfile(details: ProfileUpdate): Profile
+    updateProfile(details: ProfileUpdate): Profile!
 
     "Sign out and return if this was successful"
     signOut: Boolean

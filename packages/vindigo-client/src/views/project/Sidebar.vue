@@ -1,30 +1,32 @@
 <template>
-	<nav class="sidebar relative w-14">
-		<div
-			class="sidebar__highlight"
-			:style="offsetActiveRoute"
-		/>
-		<ol class="sidebar__container">
-			<w-tooltip
-				v-for="(item, index) in listItems"
-				:key="index"
-				class="sidebar__item"
-				right
-			>
-				<template #activator="{ on }">
-					<router-link
-						:to="item.href"
-						tag="li"
-						@click="currentIndex = item.rank"
-					>
-						<div class="sidebar__item-inner" v-on="on">
-							<img :src="item.icon" class="w-7 h-7">
-						</div>
-					</router-link>
-				</template>
-				{{ $t(item.name) }}
-			</w-tooltip>
-		</ol>
+	<nav class="sidebar">
+		<div class="sidebar__inner">
+			<div
+				class="sidebar__highlight"
+				:style="highlightStyle"
+			/>
+			<ol class="sidebar__container">
+				<w-tooltip
+					v-for="(item, index) in listItems"
+					:key="index"
+					class="sidebar__item"
+					right
+				>
+					<template #activator="{ on }">
+						<router-link
+							:to="item.href"
+							tag="li"
+							@click="currentIndex = item.rank"
+						>
+							<div class="sidebar__item-inner" v-on="on">
+								<img :src="item.icon" class="w-7 h-7">
+							</div>
+						</router-link>
+					</template>
+					{{ $t(item.name) }}
+				</w-tooltip>
+			</ol>
+		</div>
 	</nav>
 </template>
 
@@ -36,15 +38,23 @@ import _ from "lodash";
 export default Vue.extend({
 	name: 'Sidebar',
 
+	props: {
+		project: {
+			required: true,
+			type: Object
+		}
+	},
+
 	data: () => ({
 		listItems: [] as any[],
 		currentIndex: 0
 	}),
 
 	computed: {
-		offsetActiveRoute(): any {
+		highlightStyle(): any {
 			return {
-				top: (this.$route.meta!.order * 56) + 'px'
+				top: (this.$route.meta!.order * 56) + 'px',
+				backgroundColor: this.project.accentColor
 			};
 		}
 	},
@@ -71,9 +81,14 @@ export default Vue.extend({
 
 <style lang="postcss">
 .sidebar {
+	@apply w-14;
+
+	&__inner {
+		@apply sticky top-0;
+	}
 
 	&__highlight {
-		@apply rounded-r-lg absolute left-0 h-14 w-1 z-10 transition-all bg-[#14A7F4];
+		@apply rounded-r-lg absolute left-0 h-14 w-1 z-10 transition-all;
 	}
 
 	&__item {
