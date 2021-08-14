@@ -1,6 +1,7 @@
 <template>
 	<header
-		ref="toolbar" class="toolbar"
+		ref="toolbar"
+		class="toolbar"
 		:class="toolbarClass"
 	>
 		<w-progress
@@ -65,7 +66,8 @@
 						class="flex items-center mt-3"
 					>
 						<avatar
-							:profile="user" :size="22"
+							:profile="user"
+							:size="22"
 							class="mr-3"
 						/>
 						{{ user.fullName }}
@@ -102,7 +104,8 @@
 
 		<!-- ANCHOR Create new button -->
 		<w-menu
-			hide-on-menu-click align-center
+			hide-on-menu-click
+			align-center
 			custom
 		>
 			<template #activator="{ on }">
@@ -122,7 +125,10 @@
 				<w-divider />
 				<div class="list-menu__list">
 					<template v-for="(item, i) in creationItems">
-						<w-divider v-if="item == MENU_DIVIDER" :key="i" />
+						<w-divider
+							v-if="item == MENU_DIVIDER"
+							:key="i"
+						/>
 						<div
 							v-else
 							:key="i"
@@ -154,7 +160,10 @@
 		<div class="toolbar__divider mr-4" />
 
 		<!-- ANCHOR Account menu -->
-		<w-menu align-right custom>
+		<w-menu
+			align-right
+			custom
+		>
 			<template #activator="{ on }">
 				<div
 					class="flex items-center text-gray-800 cursor-pointer"
@@ -187,7 +196,8 @@
 						{{ $t("YOUR_ACCOUNT_PROFILE") }}
 					</router-link>
 					<router-link
-						to="" class="list-menu__item"
+						to=""
+						class="list-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -196,7 +206,8 @@
 						{{ $t("YOUR_ACCOUNT_PROJECTS") }}
 					</router-link>
 					<router-link
-						to="" class="list-menu__item"
+						to=""
+						class="list-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -205,7 +216,8 @@
 						{{ $t("YOUR_ACCOUNT_TEAMS") }}
 					</router-link>
 					<router-link
-						to="" class="list-menu__item"
+						to=""
+						class="list-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -244,7 +256,10 @@
 							mdi mdi-help-circle-outline
 						</w-icon>
 						{{ $t("YOUR_ACCOUNT_HELP") }}
-						<w-icon size="0.8rem" class="translate-y-0.5">
+						<w-icon
+							size="0.8rem"
+							class="translate-y-0.5"
+						>
 							mdi mdi-open-in-new
 						</w-icon>
 					</a>
@@ -330,7 +345,8 @@
 
 		<!-- ANCHOR Team creation dialog -->
 		<w-dialog
-			v-model="newTeamDialog" dialog-class="rounded-xl"
+			v-model="newTeamDialog"
+			dialog-class="rounded-xl"
 			width="600"
 		>
 			<section-title icon="mdi mdi-account-multiple-plus">
@@ -414,9 +430,7 @@ interface SearchInterface {
 export default Vue.extend({
 	name: "Toolbar",
 
-	mixins: [
-		Scrollable(window, document.documentElement)
-	],
+	mixins: [Scrollable(window, document.documentElement)],
 
 	data: () => ({
 		MENU_DIVIDER,
@@ -454,7 +468,7 @@ export default Vue.extend({
 			return this.$vuex.state.profile?.fullName;
 		},
 		admin(): boolean {
-			return this.$vuex.state.profile?.role == 'admin';
+			return this.$vuex.state.profile?.role == "admin";
 		},
 		waiterClass(): any {
 			return {
@@ -488,14 +502,16 @@ export default Vue.extend({
 				const creation = matched.meta.creation as ToolbarCreationItem[];
 
 				if (creation) {
-					const component = matched.instances.default as any;
 					const entries = creation.map((item) => {
-						const handler =
-							typeof item.handler == "string"
-								? component[item.handler]?.bind(component)
-								: item.handler;
+						return { ...item, handler: () => {
+							const component = matched.instances.default as any;
 
-						return { ...item, handler };
+							if (typeof item.handler == "string") {
+								(component[item.handler] as Function)?.bind(component)?.();
+							} else {
+								item.handler();
+							}
+						} };
 					});
 
 					if (entries.length > 0) {
@@ -544,7 +560,6 @@ export default Vue.extend({
 	},
 
 	methods: {
-
 		getScrollView() {
 			return this.$el.parentElement;
 		},
@@ -558,27 +573,32 @@ export default Vue.extend({
 		async createProject() {
 			this.newProjectLoading = true;
 
-			const res = await api.query(gql`
-				mutation ($data: ProjectCreationInput!) {
-					createProject(details: $data) {
-						projectUrl
+			const res = await api.query(
+				gql`
+					mutation ($data: ProjectCreationInput!) {
+						createProject(details: $data) {
+							projectUrl
+						}
 					}
+				`,
+				{
+					data: {
+						name: this.newProjectName,
+						description: this.newProjectDesc,
+						public: false,
+					},
 				}
-			`, {
-				data: {
-					name: this.newProjectName,
-					description: this.newProjectDesc,
-					public: false,
-				},
-			});
+			);
 
 			this.newProjectLoading = false;
 			this.newProjectDialog = false;
 
 			this.$router.push(res.createProject.projectUrl);
 			this.$waveui.notify({
-				message: this.$t('NOTIFICATION_CREATE_PROJECT', [this.newProjectName]),
-				success: true
+				message: this.$t("NOTIFICATION_CREATE_PROJECT", [
+					this.newProjectName,
+				]),
+				success: true,
 			});
 		},
 
@@ -591,26 +611,31 @@ export default Vue.extend({
 		async createTeam() {
 			this.newTeamLoading = true;
 
-			const res = await api.query(gql`
-				mutation ($data: TeamCreationInput!) {
-					createTeam(details: $data) {
-						teamUrl
+			const res = await api.query(
+				gql`
+					mutation ($data: TeamCreationInput!) {
+						createTeam(details: $data) {
+							teamUrl
+						}
 					}
+				`,
+				{
+					data: {
+						name: this.newTeamName,
+						description: this.newTeamDesc,
+					},
 				}
-			`, {
-				data: {
-					name: this.newTeamName,
-					description: this.newTeamDesc,
-				},
-			});
+			);
 
 			this.newTeamLoading = false;
 			this.newTeamDialog = false;
 
 			this.$router.push(res.createTeam.teamUrl);
 			this.$waveui.notify({
-				message: this.$t('NOTIFICATION_CREATE_TEAM', [this.newTeamName]),
-				success: true
+				message: this.$t("NOTIFICATION_CREATE_TEAM", [
+					this.newTeamName,
+				]),
+				success: true,
 			});
 		},
 
