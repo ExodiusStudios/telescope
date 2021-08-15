@@ -3,7 +3,10 @@ WORKDIR /vindigo
 
 # Install dependencies
 COPY package.json .
+
+# Copy only required packages
 COPY packages/vindigo-server/package.json packages/vindigo-server/
+COPY packages/vindigo-config/package.json packages/vindigo-config/
 COPY packages/vindigo-client/package.json packages/vindigo-client/
 COPY packages/vindigo-cli/package.json packages/vindigo-cli/
 RUN yarn install
