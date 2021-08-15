@@ -77,15 +77,26 @@
 
 /* Input specific */
 .w-input {
+
 	&__input-wrap {
-		@apply px-1 bg-light-3 dark:bg-dark-3;
+		@apply px-1 bg-light-3 dark:bg-dark-3 h-8;
 	}
 }
 
 /* Select specific */
 .w-select {
-	&__select-wrap {
-		@apply px-1 bg-light-3 dark:bg-dark-3;
+	@apply dark:text-white;
+
+	&__selection-wrap {
+		@apply px-1 bg-light-3 dark:bg-dark-3 h-8;
+	}
+
+	&__selection, &__label {
+		@apply dark:text-gray-50;
+	}
+
+	&__menu {
+		@apply dark:bg-gray-700;
 	}
 }
 
@@ -146,19 +157,6 @@
 /** Divider */
 .w-divider {
 	@apply my-3 bg-gray-900 dark:bg-gray-300;
-}
-
-/** Select */
-.w-select {
-	@apply dark:text-white;
-
-	&__selection, &__label {
-		@apply dark:text-gray-50;
-	}
-
-	&__menu {
-		@apply dark:bg-gray-700;
-	}
 }
 
 /** List */
