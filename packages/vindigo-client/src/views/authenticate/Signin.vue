@@ -34,7 +34,9 @@
 					{{ $t("SIGNIN_REMEMBER_ME") }}
 				</w-checkbox>
 				<spacer />
-				<a href="">{{ $t("SIGNIN_FORGOT_PASSWORD") }}</a>
+				<a class="text-white" href="">
+					{{ $t("SIGNIN_FORGOT_PASSWORD") }}
+				</a>
 			</div>
 			<spacer />
 			<w-button
