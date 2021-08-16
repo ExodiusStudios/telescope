@@ -95,6 +95,8 @@ export default Vue.extend({
 
 			if (!profile) {
 				this.$waveui.notify(this.$t("NOTIFICATION_INVALID_DETAILS"), "error");
+			} else {
+				this.$router.push('/');
 			}
 
 			this.loading = false;
@@ -104,7 +106,6 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss">
-
 .sign-in {
 
 	.auth-box__input input {
@@ -112,5 +113,4 @@ export default Vue.extend({
 	}
 
 }
-
 </style>
