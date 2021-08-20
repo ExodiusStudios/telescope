@@ -43,10 +43,10 @@ export default Vue.extend({
 			}
 		`, { code });
 
-		// if(!res.verifyAccount) {
-		// 	next('/');
-		// 	return;
-		// }
+		if(!res.verifyAccount) {
+			next('/');
+			return;
+		}
 
 		next();
 	},
