@@ -18,9 +18,10 @@ name = "%NAME%"
 debug = false
 
 [authentication]
-secret = "%JWT_SECRET%"
-anonymous_users = false
+secret = "%AUTH_SECRET%"
+anonymous_access = false
 registrations = false
+verify_emails = true
 
 [database]
 driver = "%DB_DRIVER%"

@@ -11,4 +11,5 @@ export interface Profile {
 	username: string
 	role: string
 	createdAt: string
+	isVerified: boolean
 }

@@ -10,12 +10,15 @@ export interface SearchRequest {
 
 export default {
 	config: async (_, _args) => {
+		const { general, authentication, client } = config;
+
 		return {
-			instanceName: config.general.name,
-			maintenance: config.general.maintenance,
-			allowRegister: config.authentication.registrations,
-			allowAnonymous: config.authentication.anonymous_users,
-			colorPalette: config.client.palette
+			instanceName: general.name,
+			maintenance: general.maintenance,
+			allowRegister: authentication.registrations,
+			allowAnonymous: authentication.anonymous_access,
+			verification: authentication.verify_emails,
+			colorPalette: client.palette
 		};
 	},
 	profile: async (_, _args, ctx) => {

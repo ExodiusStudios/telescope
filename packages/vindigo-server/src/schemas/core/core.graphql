@@ -87,6 +87,9 @@ type ClientConfig {
 	"Whether anonymous users are allowed"
 	allowAnonymous: Boolean!
 
+    "Whether email verification is enabled"
+    verification: Boolean!
+
     "The color palette for use in color pickers"
     colorPalette: [String!]!
 }
@@ -131,6 +134,9 @@ type Profile {
 
     "The date the user was created"
     createdAt: String!
+
+    "Whether the user has verified their account"
+    isVerified: Boolean!
 }
 
 """

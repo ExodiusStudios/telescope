@@ -19,6 +19,15 @@ export const profileFragment = gql`
 `;
 
 /**
+ * Personal fields on profile
+ */
+export const personalFragment = gql`
+	fragment PersonalProfileFields on Profile {
+		isVerified
+	}
+`;
+
+/**
  * All fields on team
  */
 export const teamFragment = gql`

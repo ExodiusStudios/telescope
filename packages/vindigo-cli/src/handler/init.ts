@@ -131,7 +131,7 @@ export async function handleInit(args: any) {
 	}
 
 	values['GEN_DATE'] = new Date().toString();
-	values['JWT_SECRET'] = randomBytes(32).toString('hex');
+	values['AUTH_SECRET'] = randomBytes(16).toString('hex');
 	
 	const defaultConfig = readFileSync(DEFAULT_CONFIG, 'utf-8');
 	const replacements: any = Object.fromEntries(Object.entries(values).map(([k, v]) => [`%${k}%`, v]));

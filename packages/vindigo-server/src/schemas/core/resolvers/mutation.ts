@@ -47,8 +47,9 @@ export default {
 		// Hash the provided password
 		const password = await hash(details.password, 7);
 
-		// Generate a unique verification code
-		const verifyCode = generateCode(12);
+		// Handle email verification
+		const shouldVerify = config.authentication.verify_emails;
+		const verifyCode = shouldVerify ? generateCode(12) : undefined;
 
 		// Save the profile to the database
 		const profile = await database.user.create({
@@ -71,17 +72,19 @@ export default {
 
 		logger.info(`Registered new user ${username}`);
 
-		mailer.sendTemplateEmail({
-			template: 'email_confirmation',
-			subject: 'Please verify your account',
-			target: profile,
-			context: {
-				name: details.fullname,
-				code: verifyCode
-			}
-		}).catch(err => {
-			logger.error('Failed to send verification email', err);
-		});
+		if(shouldVerify) {
+			mailer.sendTemplateEmail({
+				template: 'email_confirmation',
+				subject: 'Please verify your account',
+				target: profile,
+				context: {
+					name: details.fullname,
+					code: verifyCode!
+				}
+			}).catch(err => {
+				logger.error('Failed to send verification email', err);
+			});
+		}
 
 		return profile;
 	},

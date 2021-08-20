@@ -22,8 +22,9 @@ export interface IServerConfig {
 	},
 	authentication: {
 		secret: string,
-		anonymous_users: boolean,
+		anonymous_access: boolean,
 		registrations: boolean
+		verify_emails: boolean
 	},
 	smtp: {
 		enabled: boolean,
@@ -63,8 +64,9 @@ const defaultConfig: IServerConfig = {
 	},
 	authentication: {
 		secret: '',
-		anonymous_users: false,
-		registrations: false
+		anonymous_access: false,
+		registrations: false,
+		verify_emails: true
 	},
 	smtp: {
 		enabled: false,

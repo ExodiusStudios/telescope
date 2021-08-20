@@ -52,7 +52,8 @@ export function registerState() {
 				instanceName: '',
 				maintenance: false,
 				allowAnonymous: false,
-				allowRegister: false
+				allowRegister: false,
+				verification: false
 			}
 		}
 	});

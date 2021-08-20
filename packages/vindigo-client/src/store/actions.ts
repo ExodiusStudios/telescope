@@ -1,9 +1,10 @@
-import { api, routing } from "..";
+import { api, routing, vue } from "..";
 
 import { ActionTree } from "vuex";
 import { RootState } from "./state";
 import gql from "graphql-tag";
-import { profileFragment } from "../fragments";
+import { personalFragment, profileFragment } from "../fragments";
+import { clientReadyTask } from "../util";
 
 /**
  * Register store actions
@@ -21,6 +22,7 @@ export const storeActions: ActionTree<RootState, RootState> = {
 					maintenance
 					allowRegister
 					allowAnonymous
+					verification
 					colorPalette
 				}
 			}
@@ -33,18 +35,30 @@ export const storeActions: ActionTree<RootState, RootState> = {
 	/**
 	 * Authenticate with the server
 	 */
-	async authenticate({ commit }) {
+	async authenticate({ state, commit }) {
 		const res = await api.query(gql`
 			query {
 				profile {
 					...AllProfileFields
+					...PersonalProfileFields
 				}
 			}
 			${profileFragment}
+			${personalFragment}
 		`);
 
 		commit('storeProfile', res.profile);
 		commit('setLoaded', 'auth');
+
+		clientReadyTask.then(() => {
+			if(state.config.verification && !state.profile!.isVerified) {
+				vue.$waveui.notify({
+					error: true,
+					message: 'Your account has not been verified yet',
+					timeout: 0
+				});
+			}
+		});
 	},
 
 	/**
@@ -55,9 +69,11 @@ export const storeActions: ActionTree<RootState, RootState> = {
 			mutation ($details: UserAuthentication!) {
 				authenticate(details: $details) {
 					...AllProfileFields
+					...PersonalProfileFields
 				}
 			}
 			${profileFragment}
+			${personalFragment}
 		`, { details });
 
 		commit('storeProfile', result.authenticate);
@@ -70,9 +86,11 @@ export const storeActions: ActionTree<RootState, RootState> = {
 			mutation ($details: UserRegistration!) {
 				register(details: $details) {
 					...AllProfileFields
+					...PersonalProfileFields
 				}
 			}
 			${profileFragment}
+			${personalFragment}
 		`, { details });
 
 		commit('storeProfile', result.register);

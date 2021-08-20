@@ -6,4 +6,5 @@ export interface ClientConfig {
 	maintenance: boolean;
 	allowRegister: boolean;
 	allowAnonymous: boolean;
+	verification: boolean;
 }
