@@ -55,6 +55,12 @@
 			</file-upload>
 		</div>
 
+		<label>Accent color</label>
+		<w-input
+			v-model="projectColor"
+			class="mb-5"
+		/>
+
 		<label>Public access</label>
 		<small>
 			Setting your project to be publically accessible means everyone will be able to view it as <em>guest</em>
@@ -164,6 +170,7 @@ export default Vue.extend({
 
 		projectName: '',
 		projectDesc: '',
+		projectColor: '',
 		projectPublic: false,
 
 		projectCover: null,
@@ -177,6 +184,7 @@ export default Vue.extend({
 	created() {
 		this.projectName = this.project.name;
 		this.projectDesc = this.project.description;
+		this.projectColor = this.project.accentColor;
 		this.projectPublic = this.project.isPublic;
 		this.projectCoverPreview = this.project.coverImage;
 	},
@@ -207,6 +215,7 @@ export default Vue.extend({
 				details: {
 					name: this.projectName,
 					description: this.projectDesc,
+					accentColor: this.projectColor,
 					isPublic: this.projectPublic,
 					removeCover: this.projectRemoveCover
 				}

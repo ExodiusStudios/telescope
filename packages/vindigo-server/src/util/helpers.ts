@@ -1,8 +1,20 @@
 import { GraphQLResolveInfo } from "graphql";
 import getFieldNames from 'graphql-list-fields';
+import { randomBytes } from 'crypto';
+import { join } from "path";
 
 export function elseThrow(err: Error): never {
 	throw err;
+}
+
+/**
+ * Resolve a path within the data directory
+ * 
+ * @param path The path to resolve
+ * @returns The full path
+ */
+export function resolveData(...path: string[]) {
+	return join('data', ...path);
 }
 
 /**
@@ -28,4 +40,14 @@ export function hasField(info: GraphQLResolveInfo, field: string): boolean {
 	return getFieldNames(info).some(f =>
 		f == field || f.startsWith(field + '.')
 	);
+}
+
+/**
+ * Generate a securely random string of the given length
+ * 
+ * @param length String length
+ * @returns The code
+ */
+export function generateCode(length: number): string {
+	return randomBytes(length / 2).toString('hex');
 }
