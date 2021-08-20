@@ -46,6 +46,7 @@ input ProjectUpdate {
     description: String
 	isPublic: Boolean
 	removeCover: Boolean
+	accentColor: String
 }
 
 """

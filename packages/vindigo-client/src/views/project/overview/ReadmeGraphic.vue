@@ -1,10 +1,9 @@
-<template functional>
-	<svg viewBox="0 0 1051 705">
+<template>
+	<svg viewBox="0 0 1051 705" :style="{color: color}">
 		<g transform="matrix(1,0,0,1,-74.5691,-97.8236)">
 			<path
 				d="M1125.43,472.176C1125.43,614.646 1035.13,736.036 908.651,782.226C889.41,789.267 869.549,794.48 849.331,797.796C793.712,806.918 736.677,801.738 683.611,782.746C556.331,736.936 465.371,615.136 465.431,472.106C465.431,289.926 613.181,142.176 795.431,142.176C864.299,142.076 931.485,163.631 987.441,203.776C1070.99,263.636 1125.43,361.546 1125.43,472.176Z"
-				fill="currentColor"
-				style="fill-rule:nonzero;"
+				style="fill-rule:nonzero; fill: currentColor"
 				:class="$isDark ? 'text-dark-1' : 'text-light-2'"
 			/>
 		</g>
@@ -59,3 +58,15 @@
 		</g>
 	</svg>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
+	name: 'ReadmeGraphic',
+
+	props: {
+		color: String
+	}
+});
+</script>

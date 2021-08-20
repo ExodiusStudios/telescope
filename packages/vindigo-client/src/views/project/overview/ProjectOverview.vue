@@ -36,7 +36,7 @@
 							v-html="project.readmeHtml"
 						/>
 						<div v-else class="project-readme__missing">
-							<readme-graphic />
+							<readme-graphic :color="project.accentColor" />
 							<h2 class="text-xl font-medium text-gray-500 mt-4">
 								No project information
 							</h2>

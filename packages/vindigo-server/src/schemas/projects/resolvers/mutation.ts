@@ -100,6 +100,10 @@ export default {
 			mutation.description = details.description || null;
 		}
 
+		if(details.accentColor !== undefined) {
+			mutation.accentColor = details.accentColor || null;
+		}
+
 		// TODO Delete the actual image from disk
 		if(details.removeCover) {
 			mutation.coverImage = null;
