@@ -104,3 +104,22 @@ export function buildThemeConfig(): Dictionary<string> {
 export function parseSlug(slug: string): number|undefined {
 	return parseInt(slug.split('-')[0]) || undefined;
 }
+
+/**
+ * Check if the current environment is loaded into Electron
+ * 
+ * Inspired by https://github.com/cheton/is-electron
+ * 
+ * @returns The result
+ */
+export function isElectron(): boolean {
+	if(typeof window !== 'undefined' && typeof window.process === 'object' && (window.process as any).type === 'renderer') {
+		return true;
+	}
+
+	if(typeof navigator === 'object' && typeof navigator.userAgent === 'string' && navigator.userAgent.indexOf('Electron') >= 0) {
+		return true;
+	}
+
+	return false;
+}
