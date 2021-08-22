@@ -10,7 +10,7 @@
 				</label>
 			</div>
 			<small>
-				Choose a theme that Vindigo will appear as to you
+				{{ $t('SETTINGS_APPEARANCE_CHOOSE_THEME') }}
 			</small>
 		</section>
 		<section>
@@ -18,7 +18,7 @@
 				{{ $t('SETTINGS_APPEARANCE_LANGUAGE') }}
 			</label>
 			<small>
-				Change the interface language Vindigo uses.
+				{{ $t('SETTINGS_APPEARANCE_CHOOSE_LANGUAGE') }}
 			</small>
 			<w-select
 				v-model="language" 

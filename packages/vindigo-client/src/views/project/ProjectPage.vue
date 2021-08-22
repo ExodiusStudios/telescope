@@ -34,10 +34,10 @@
 								</w-icon>
 								<div class="pl-1">
 									<div>
-										Settings
+										{{$t('PROJECT_SETTINGS_SETTINGS')}}
 									</div>
 									<small class="text-gray-500 -mt-1 block">
-										Project management
+										{{$t('PROJECT_SETTINGS_PROJECT_MANAGEMENT')}}
 									</small>
 								</div>
 							</router-link>
@@ -50,7 +50,7 @@
 								<w-icon size="1.1rem">
 									mdi mdi-lightning-bolt
 								</w-icon>
-								Automation
+								{{$t('PROJECT_SETTINGS_AUTOMATION')}}
 							</router-link>
 							<router-link
 								to=""
@@ -60,7 +60,7 @@
 								<w-icon size="1.1rem">
 									mdi mdi-tag-text
 								</w-icon>
-								Labels & Tags
+								{{$t('PROJECT_SETTINGS_LABELS_TAGS')}}
 							</router-link>
 							<router-link
 								to=""
@@ -70,7 +70,7 @@
 								<w-icon size="1.1rem">
 									mdi mdi-book
 								</w-icon>
-								Archive
+								{{$t('PROJECT_SETTINGS_ARCHIVE')}}
 							</router-link>
 							<router-link
 								to=""
@@ -80,14 +80,14 @@
 								<w-icon size="1.1rem">
 									mdi mdi-bell
 								</w-icon>
-								Notifications
+								{{$t('PROJECT_SETTINGS_NOTIFICATIONS')}}
 							</router-link>
 							<w-divider />
 							<div class="px-4 pb-1 text-dark-3 font-semibold flex items-center">
-								Members
+								{{$t('PROJECT_SETTINGS_MEMBERS')}}
 								<spacer />
 								<small class="text-gray-500 font-medium underline cursor-pointer">
-									Manage
+									{{$t('PROJECT_SETTINGS_MANAGE')}}
 								</small>
 							</div>
 							<div class="px-3 pb-2 flex flex-wrap">

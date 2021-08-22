@@ -38,13 +38,13 @@
 						<div v-else class="project-readme__missing">
 							<readme-graphic :color="project.accentColor" />
 							<h2 class="text-xl font-medium text-gray-500 mt-4">
-								No project information
+								{{$t("PROJECT_OVERVIEW_SECTION_NO_PROJECT_INFO")}}
 							</h2>
 							<p
 								v-if="project.accessLevel == 'manager'"
 								class="text-lg text-gray-400"
 							>
-								Enter project information in the project settings to provide additional information for project members.
+								{{$t("PROJECT_OVERVIEW_SECTION_ENTER_PROJECT_INFO")}}
 							</p>
 						</div>
 					</div>

@@ -10,68 +10,53 @@
 					/>
 					<img
 						v-if="preview != ''"
-						class="block picture-upload__image" 
-						:src="preview || require('/assets/avatar-placeholder.svg')"
-					>
+						class="block picture-upload__image"
+						:src="
+							preview || require('/assets/avatar-placeholder.svg')
+						"
+					/>
 					<file-upload
 						v-model="avatar"
-						class="mt-5 w-full" 
+						class="mt-5 w-full"
 						@preview="showPreview"
 					>
-						<w-button class="w-full h-9 ml-0">
-							Change
-						</w-button>
+						<w-button class="w-full h-9 ml-0"> Change </w-button>
 					</file-upload>
 				</div>
 				<w-form class="sm12 md10 laptop:pl-5 mobile:pl-0">
 					<label>
-						Full name
+						{{ $t("GENERAL_FULL_NAME") }}
 					</label>
-					
-					<w-input
-						v-model="fullname"
-						class="mb-5"
-					/>
+
+					<w-input v-model="fullname" class="mb-5" />
 
 					<label>
-						Email address
+						{{ $t("GENERAL_EMAIL") }}
 					</label>
-					<w-input
-						v-model="email"
-						class="mb-5"
-					/>
+					<w-input v-model="email" class="mb-5" />
 
 					<label>
-						Username
+						{{ $t("GENERAL_USERNAME") }}
 					</label>
-					<w-input
-						v-model="username"
-						class="mb-5"
-					/>
+					<w-input v-model="username" class="mb-5" />
 
-					<label>
-						Bio <small>(Optional)</small>
-					</label>
+					<label v-html="$t('SETTINGS_PROIFLE_BIO')"/> 
 					<!-- REMOVE: :placeholder="$t('SETTINGS_PROFILE_BIO')" -->
 					<w-textarea
 						v-model="bio"
 						class="mb-5"
-						placeholder="Enter bio..."
+						:placeholder="$t('SETTINGS_PROFILE_ENTER_BIO')"
 					/>
-	
-					<label>
-						Website <small>(Optional)</small>
-					</label>
+
+					<label v-html="$t('SETTINGS_PROFILE_WEBSITE')"> </label>
 					<w-input
 						v-model="website"
-						placeholder="Enter website URL..."
+						:placeholder="$t('SETTINGS_PROFILE_ENTER_WEBSITE')"
 					/>
 
 					<w-button class="mt-5 -ml-0" @click="saveUserProfile">
-						{{ $t('GENERAL_SAVE') }}
-						<w-icon class="ml-2">
-							mdi mdi-content-save
-						</w-icon>
+						{{ $t("GENERAL_SAVE") }}
+						<w-icon class="ml-2"> mdi mdi-content-save </w-icon>
 					</w-button>
 				</w-form>
 			</w-flex>
@@ -80,24 +65,24 @@
 </template>
 
 <script lang="ts">
-import gql from 'graphql-tag';
-import Vue from 'vue';
-import { api } from '../../..';
+import gql from "graphql-tag";
+import Vue from "vue";
+import { api } from "../../..";
 
 export default Vue.extend({
 	name: "ProfileTab",
 	data: () => ({
 		avatar: null,
-		preview: '',
-		fullname: '',
-		email: '',
-		username: '',
-		bio: '',
-		website: ''	 
+		preview: "",
+		fullname: "",
+		email: "",
+		username: "",
+		bio: "",
+		website: "",
 	}),
 	mounted() {
 		const profile = this.$vuex.state.profile;
-		
+
 		// assigning each profile variable
 		this.preview = profile!.avatar!;
 		this.fullname = profile!.fullName;
@@ -109,46 +94,47 @@ export default Vue.extend({
 			this.preview = preview;
 		},
 		async saveUserProfile() {
-			if(this.avatar != null) {
-				await api.upload('avatar', this.avatar!);
+			if (this.avatar != null) {
+				await api.upload("avatar", this.avatar!);
 			}
-			
+
 			const profile = {
 				fullname: this.fullname,
 				email: this.email,
 				username: this.username,
 				bio: this.bio,
-				website: this.website
+				website: this.website,
 			};
 
-			await api.query(gql`
-				mutation($details: ProfileUpdate) {
-					updateProfile(details: $details) {
-						id
+			await api.query(
+				gql`
+					mutation ($details: ProfileUpdate) {
+						updateProfile(details: $details) {
+							id
+						}
 					}
+				`,
+				{
+					details: profile,
 				}
-			`, {
-				details: profile
-			});
+			);
 
-			this.$store.dispatch('updateProfile');
+			this.$store.dispatch("updateProfile");
 			this.$waveui.notify({
 				message: this.$t("SETTINGS_PROFILE_UPDATE_SUCCESS"),
-				success: true
+				success: true,
 			});
-		}
-	}
+		},
+	},
 });
 </script>
 
 <style lang="postcss">
-
-	.picture-upload {
-
-		&__image {
-			@apply bg-light-1 dark:bg-dark-3 rounded-full ;
-			width: 148px;
-			height: 148px;
-		}
+.picture-upload {
+	&__image {
+		@apply bg-light-1 dark:bg-dark-3 rounded-full;
+		width: 148px;
+		height: 148px;
 	}
+}
 </style>

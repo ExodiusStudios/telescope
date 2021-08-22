@@ -12,7 +12,7 @@
 				bg-color="accent-1"
 				:route="'/'"
 			>
-				Return Home
+				{{$t("GENERAL_RETURN_HOME")}}
 			</w-button>
 		</span>
 	</section>

@@ -1,24 +1,20 @@
 <template>
 	<section>
 		<label v-html="$t('CREATE_NEW_PROJECT_NAME')" />
-		<w-input
-			v-model="projectName"
-			class="mb-5"
-		/>
+		<w-input v-model="projectName" class="mb-5" />
 
 		<label v-html="$t('CREATE_NEW_DESC')" />
-		<w-textarea
-			v-model="projectDesc"
-			class="mb-5"
-			rows="3"
-		/>
+		<w-textarea v-model="projectDesc" class="mb-5" rows="3" />
 
-		<label>Cover image</label>
+		<label>{{ $t("PROJECT_SETTINGS_GENERAL_COVER_IMAGE") }}</label>
 		<div class="mb-5 w-52 relative">
 			<img
-				:src="projectCoverPreview || require('/assets/avatar-placeholder.svg')"
+				:src="
+					projectCoverPreview ||
+					require('/assets/avatar-placeholder.svg')
+				"
 				class="cover-preview"
-			>
+			/>
 			<file-upload
 				v-model="projectCover"
 				class="absolute -bottom-5 -right-5"
@@ -55,21 +51,13 @@
 			</file-upload>
 		</div>
 
-		<label>Accent color</label>
-		<w-input
-			v-model="projectColor"
-			class="mb-5"
-		/>
+		<label>{{ $t("PROJECT_SETTINGS_GENERAL_ACCENT_COLOR") }}</label>
+		<w-input v-model="projectColor" class="mb-5" />
 
-		<label>Public access</label>
-		<small>
-			Setting your project to be publically accessible means everyone will be able to view it as <em>guest</em>
+		<label>{{ $t("PROJECT_SETTINGS_GENERAL_PUBLIC_ACCESS") }}</label>
+		<small v-html="$t('PROJECT_SETTINGS_GENERAL_PUBLIC_ACCESS_DESC')">
 		</small>
-		<w-switch
-			v-model="projectPublic"
-			color="success"
-			class="mb-4"
-		/>
+		<w-switch v-model="projectPublic" color="success" class="mb-4" />
 
 		<div class="block">
 			<w-button
@@ -77,20 +65,16 @@
 				:loading="isSaving"
 				@click="saveDetails"
 			>
-				{{ $t('GENERAL_SAVE') }}
-				<w-icon class="ml-2">
-					mdi mdi-content-save
-				</w-icon>
+				{{ $t("GENERAL_SAVE") }}
+				<w-icon class="ml-2"> mdi mdi-content-save </w-icon>
 			</w-button>
 		</div>
 
-		<hr class="my-5">
+		<hr class="my-5" />
 
-		<label>
-			Archive project
-		</label>
+		<label>{{$t('PROJECT_SETTINGS_GENERAL_ARCHIVE_PROJECT')}}</label>
 		<small>
-			Archiving this project will lock it from further modifications and will hide it from the project listings. 
+			{{$t('PROJECT_SETTINGS_GENERAL_ARCHIVE_PROJECT_DESC')}}
 		</small>
 
 		<w-button
@@ -99,10 +83,8 @@
 			outline
 			@click="deletionDialog = true"
 		>
-			Archive project
-			<w-icon class="pl-2">
-				mdi mdi-delete
-			</w-icon>
+			{{$t('PROJECT_SETTINGS_GENERAL_ARCHIVE_PROJECT')}}
+			<w-icon class="pl-2"> mdi mdi-delete </w-icon>
 		</w-button>
 
 		<!-- ANCHOR Deletion dialog -->
@@ -111,14 +93,15 @@
 			dialog-class="rounded-xl"
 			width="350"
 		>
-			<section-title icon="mdi mdi-delete" class="text-red-400 dark:text-red-400">
+			<section-title
+				icon="mdi mdi-delete"
+				class="text-red-400 dark:text-red-400"
+			>
 				Close project
 			</section-title>
 
 			<div class="my-4">
-				<p class="text-dark mb-1">
-					Are you sure you want to continue?
-				</p>
+				<p class="text-dark mb-1">Are you sure you want to continue?</p>
 				<small class="text-gray-500">
 					Closing this project will lock it from further modifications
 					and will no longer appear in projects lists.
@@ -133,9 +116,7 @@
 					:disabled="deletionActive"
 					@click="deletionDialog = false"
 				>
-					<w-icon class="pr-2">
-						mdi mdi-arrow-left
-					</w-icon>
+					<w-icon class="pr-2"> mdi mdi-arrow-left </w-icon>
 					Back
 				</w-button>
 				<spacer />
@@ -155,30 +136,29 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import gql from 'graphql-tag';
-import { api } from '../../../..';
-
+import Vue from "vue";
+import gql from "graphql-tag";
+import { api } from "../../../..";
 
 export default Vue.extend({
-	name: 'GeneralTab',
+	name: "GeneralTab",
 
-	props: ['project'],
+	props: ["project"],
 
 	data: () => ({
 		isSaving: false,
 
-		projectName: '',
-		projectDesc: '',
-		projectColor: '',
+		projectName: "",
+		projectDesc: "",
+		projectColor: "",
 		projectPublic: false,
 
 		projectCover: null,
-		projectCoverPreview: '',
+		projectCoverPreview: "",
 		projectRemoveCover: false,
 
 		deletionDialog: false,
-		deletionActive: false
+		deletionActive: false,
 	}),
 
 	created() {
@@ -199,15 +179,18 @@ export default Vue.extend({
 			this.projectCover = null;
 		},
 		removeCover() {
-			this.projectCoverPreview = '';
+			this.projectCoverPreview = "";
 			this.projectRemoveCover = true;
 		},
 		async saveDetails() {
-			if(this.isSaving) return;
+			if (this.isSaving) return;
 			this.isSaving = true;
 
-			if(this.projectCover != null) {
-				await api.upload(`cover?project=${this.project.id}`, this.projectCover!);
+			if (this.projectCover != null) {
+				await api.upload(
+					`cover?project=${this.project.id}`,
+					this.projectCover!
+				);
 			}
 
 			await api.query(SAVE_MUTATION, {
@@ -217,27 +200,27 @@ export default Vue.extend({
 					description: this.projectDesc,
 					accentColor: this.projectColor,
 					isPublic: this.projectPublic,
-					removeCover: this.projectRemoveCover
-				}
+					removeCover: this.projectRemoveCover,
+				},
 			});
 
 			this.isSaving = false;
 
 			this.$waveui.notify({
-				message: this.$t('PROJECT_SETTINGS_SAVE_SUCCESS'),
-				success: true
+				message: this.$t("PROJECT_SETTINGS_SAVE_SUCCESS"),
+				success: true,
 			});
 		},
 		async deleteProject() {
 			this.deletionActive = true;
 
 			await api.query(ARCHIVE_MUTATION, {
-				id: this.project.id
+				id: this.project.id,
 			});
 
-			this.$router.push('/');
-		}
-	}
+			this.$router.push("/");
+		},
+	},
 });
 
 const SAVE_MUTATION = gql`
