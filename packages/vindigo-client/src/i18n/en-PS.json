@@ -94,5 +94,8 @@
     "GENERAL_SUNDAY": "Sun",
     "NOTIFICATION_CREATE_PROJECT": "Prject {0} created",
     "NOTIFICATION_CREATE_TEAM": "Crew {0} created",
-    "NOTIFICATION_INVALID_DETAILS": "Invalid credentials"
+    "NOTIFICATION_INVALID_DETAILS": "Invalid credentials",
+    "YOUR_ACCOUNT_ADMIN": "",
+    "MAINTENANCE_TITLE": "",
+    "MAINTENANCE_DESC": ""
 }
