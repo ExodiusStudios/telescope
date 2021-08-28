@@ -1,28 +1,27 @@
 import path, { join } from "path";
-
-import BucketStorage from "../util/bucket";
-import { Project } from "@prisma/client";
+import { Project, User } from "@prisma/client";
 import { database } from "..";
 import { resolveData } from "../util/helpers";
+import StorageBucket from "../util/bucket";
+import { UploadedFile } from "express-fileupload";
 
 const COVER_SYSTEM_PATH = resolveData("public/cover/");
 const COVER_PUBLIC_PATH = '/data/cover/';
 
-export default class CoverStorage extends BucketStorage {
+export default class CoverStorage extends StorageBucket {
 
 	public constructor() {
-		super(COVER_SYSTEM_PATH);
+		super(COVER_PUBLIC_PATH, COVER_SYSTEM_PATH);
 	}
 
 	/**
 	 * Sets the currently loaded file as the cover image of a project
 	 * 
+	 * @param file UploadedFile to set as cover
 	 * @param project The project
 	 */
-	public async setCoverImage(project: Project) {
-		const newPublicPath = join(COVER_PUBLIC_PATH, this.bucketPath)
-			.split(path.sep)
-			.join(path.posix.sep);
+	public async storeCover(file: UploadedFile, project: Project) {
+		const path = await super.store(file, project.coverImage);
 
 		// set as cover in the database
 		await database.project.update({
@@ -30,10 +29,9 @@ export default class CoverStorage extends BucketStorage {
 				id: project.id
 			},
 			data: {
-				coverImage: newPublicPath
+				coverImage: path
 			}
 		});
-
 	}
 
 }

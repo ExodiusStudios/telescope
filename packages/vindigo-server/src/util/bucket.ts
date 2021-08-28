@@ -1,86 +1,56 @@
-import { dirname, join } from "path";
-import { existsSync, mkdirSync } from "fs";
-
 import { UploadedFile } from "express-fileupload";
+import { existsSync } from "fs";
+import { unlink } from "fs/promises";
 import { last } from "lodash";
+import { join } from "path";
 
-const ERROR_FILE_NOT_LOADED = new Error('No file is currently loaded. Use the file() method to do so.');
+export default class StorageBucket {
 
-/**
- * Tool used to upload files to the system using the bucket path convention
- * 
- * @author Jackson Bean
- */
-export default class BucketStorage {
-	
-	protected location: string | undefined;
-	protected currentFile: UploadedFile | null;
+	public publicPath: string;
+	public systemPath: string;
 
-	/**
-	 * @param location System path for the bucket
-	 */
-	protected constructor(location?: string | undefined) {
-		this.location = location;
+	constructor(publicPath: string, systemPath: string) {
+		this.publicPath = publicPath;
+		this.systemPath = systemPath;
 	}
 
 	/**
-	 * Loads a file into the bucket storage for later manipulation
+	 * Stores the file to the system
 	 * 
-	 * @param file File to be loaded
+	 * @returns public path of uploaded file
 	 */
-	public file(file: UploadedFile) {
-		this.currentFile = file;
-
-		return this;
-	}
-
-	/**
-	 * Returns Shorthand bucket path based on md5 hash of currently-loaded file
-	 * 
-	 * ex. "/32/3277f73cb2b1727a88a201691792d4ff.png"
-	 */
-	public get bucketPath(): string {
-		if(!this.currentFile) {
-			throw ERROR_FILE_NOT_LOADED;
-		}
-
-		const { md5, name } = this.currentFile;
+	protected async store(file: UploadedFile, currentPublicPath?: string | null): Promise<string> {
+		const { md5, name } = file;
 		const ext = last(name.split(/\./g));
-		const newName = `${md5}.${ext}`;
-		const bucket = `${md5.substr(0, 2)}/${newName}`;
+		const hashedName = `${md5}.${ext}`;
+		const namespace = `${md5.substr(0, 2)}/${hashedName}`;
 
-		return bucket;
+		const systemPath = join(this.systemPath, namespace);
+		const publicPath = join(this.publicPath, namespace);
 
-	}
-
-	/**
-	 * Full system path of the loaded file
-	 */
-	public get fullPath(): string {
-		if(!this.location) {
-			throw new Error('No location provided in constructor');
+		if(currentPublicPath) {
+			await this.delete(currentPublicPath);
 		}
+
+		await file.mv(systemPath);
 		
-		const path = join(this.location, this.bucketPath);
-
-		return path;
+		return publicPath;
 	}
 
 	/**
-	 * Saves the currently loaded file to the system
+	 * Delete a file from the bucket
 	 */
-	public async save() {
-		if(!this.currentFile) {
-			throw ERROR_FILE_NOT_LOADED;
+	public async delete(publicPath: string) {
+		if(!publicPath.startsWith(this.publicPath)) {
+			throw new Error("Invalid public path");
 		}
 
-		if(!existsSync(dirname(this.fullPath))) {
-			mkdirSync(dirname(this.fullPath), { recursive: true });
+		const namespace = publicPath.substr(this.publicPath.length);
+		const systemPath = join(this.systemPath, namespace);
+
+		if(existsSync(systemPath)) {
+			await unlink(systemPath);
 		}
-
-		await this.currentFile.mv(this.fullPath);
-
-		return this;
 	}
 
 }
