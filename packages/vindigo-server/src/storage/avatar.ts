@@ -4,25 +4,20 @@ import BucketStorage from "../util/bucket";
 import { User } from "@prisma/client";
 import { database } from "..";
 import { resolveData } from "../util/helpers";
+import StorageBucket from "../util/bucket";
+import { UploadedFile } from "express-fileupload";
 
-const AVATAR_SYSTEM_PATH = resolveData("public/avatar/");
+const AVATAR_SYSTEM_PATH = resolveData('public/avatar/');
 const AVATAR_PUBLIC_PATH = '/data/avatar/';
 
-export default class AvatarStorage extends BucketStorage {
+export default class AvatarStorage extends StorageBucket {
 
 	public constructor() {
-		super(AVATAR_SYSTEM_PATH);
+		super(AVATAR_PUBLIC_PATH, AVATAR_SYSTEM_PATH);
 	}
 
-	/**
-	 * Sets the currently loaded file as the profile picture for a user
-	 * 
-	 * @param user User for the 
-	 */
-	public async setAsAvatar(user: User) {
-		const newPublicPath = join(AVATAR_PUBLIC_PATH, this.bucketPath)
-			.split(path.sep)
-			.join(path.posix.sep);
+	public async storeAvatar(file: UploadedFile, user: User) {
+		const path = await super.store(file, user.avatar);
 
 		// set as avatar in the database
 		await database.user.update({
@@ -30,10 +25,9 @@ export default class AvatarStorage extends BucketStorage {
 				id: user.id
 			},
 			data: {
-				avatar: newPublicPath
+				avatar: path
 			}
 		});
-
 	}
 
 }

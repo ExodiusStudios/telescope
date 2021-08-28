@@ -27,8 +27,8 @@ export class UploadCoverController extends Controller {
 			return new InvalidArgumentError('Unknown project');
 		}
 
-		await storage.file(cover).save(); // save to the system
-		await storage.setCoverImage(project); // set as the cover
+		// set as the cover
+		await storage.storeCover(cover, project);
 
 		// return the public path of the new cover image;
 		return project.coverImage;

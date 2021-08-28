@@ -17,8 +17,7 @@ export class UploadAvatarController extends Controller {
 		const storage = new AvatarStorage();
 		const avatar = this.req.files.file as UploadedFile;
 
-		await storage.file(avatar).save(); // save to the system
-		await storage.setAsAvatar(this.user); // set as their avatar
+		await storage.storeAvatar(avatar, this.user);
 
 		// return the public path of their new avatar;
 		return this.user.avatar;
