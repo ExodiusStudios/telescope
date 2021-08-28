@@ -95,7 +95,7 @@
     "NOTIFICATION_CREATE_PROJECT": "Prject {0} created",
     "NOTIFICATION_CREATE_TEAM": "Crew {0} created",
     "NOTIFICATION_INVALID_DETAILS": "Invalid credentials",
-    "YOUR_ACCOUNT_ADMIN": "",
-    "MAINTENANCE_TITLE": "",
-    "MAINTENANCE_DESC": ""
+    "YOUR_ACCOUNT_ADMIN": "Admin Dashboard",
+    "MAINTENANCE_TITLE": "Under maintenance",
+    "MAINTENANCE_DESC": "This installation of Vindigo is currently under maintenance. Please check back later."
 }
