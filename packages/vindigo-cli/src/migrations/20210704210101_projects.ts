@@ -49,6 +49,7 @@ exports.up = async function({schema}: Knex) {
 			table.timestamp('lastModifiedAt');
 			table.string('summary');
 			table.text('description');
+			table.boolean('isCompleted').defaultTo(false);
 			table.boolean('isArchived').defaultTo(false);
 			table.dateTime('startTime');
 			table.dateTime('endTime');

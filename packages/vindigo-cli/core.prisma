@@ -51,6 +51,7 @@ model Project {
     members         ProjectMember[]
     teams           ProjectTeam[]
     labels          Label[]
+    tasks           Task[]
 
     @@map("projects")
 }
@@ -91,11 +92,13 @@ model Label {
 
 model Task {
     id             Int           @id @default(autoincrement())
+    projectId      Int
     parentId       Int?
     createdAt      DateTime
     lastModifiedAt DateTime
     summary        String
     description    String?
+    isCompleted    Boolean
     isArchived     Boolean
     startTime      DateTime?
     endTime        DateTime?
@@ -104,6 +107,7 @@ model Task {
     members        TaskMember[]
     watchers       TaskWatcher[]
     labels         TaskLabel[]
+    project        Project       @relation(fields: [projectId], references: [id])
 
     @@map(name: "tasks")
 }

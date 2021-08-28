@@ -1,10 +1,9 @@
-import { MissingSessionError, NotImplementedError } from "../../../util/errors";
+import { MissingSessionError, NoPermissionError, NotImplementedError } from "../../../util/errors";
 
 import { GraphQLResolvers } from "../../../http";
 import { Prisma } from "@prisma/client";
 import { database } from "../../..";
-import { fetchProjectById } from "../fetchers/project";
-import { fetchTaskById } from "../fetchers/task";
+import { checkAccess, fetchProjectById } from "../fetchers/project";
 import { parseTakeSize } from "../../../util/http";
 
 export default {
@@ -58,10 +57,27 @@ export default {
 			take: parseTakeSize(take, 50)
 		});
 	},
-	project: async (_, { id }) => {
-		return fetchProjectById(id);
+	project: async (_, { id }, ctx) => {
+		const project = await fetchProjectById(id);
+
+		if(project && !checkAccess(project, ctx.user)) {
+			throw new NoPermissionError();
+		}
+
+		return project;
 	},
-	task: async (_, { id }) => {
-		return fetchTaskById(id);
+	task: async (_, { id }, ctx) => {
+		const task = await database.task.findUnique({
+			where: { id },
+			include: {
+				project: true
+			}
+		});
+
+		if(task && !checkAccess(task.project, ctx.user)) {
+			throw new NoPermissionError();
+		}
+
+		return task;
 	}
 } as GraphQLResolvers;

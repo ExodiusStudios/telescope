@@ -23,7 +23,7 @@ export function fetchProjectById(id: number): Promise<Nullable<Project>> {
  * @param user The project creator
  * @returns The project, or null
  */
-export function fetchProjecOfCreator(id: number, user: User|undefined): Promise<Nullable<Project>> {
+export function fetchCreatorProject(id: number, user: User|undefined): Promise<Nullable<Project>> {
 	if(!user) {
 		return Promise.resolve(null);
 	}
@@ -34,4 +34,48 @@ export function fetchProjecOfCreator(id: number, user: User|undefined): Promise<
 			creator: user
 		}
 	});
+}
+
+/**
+ * Check whether the given user has access to
+ * the specified project.
+ * 
+ * @param project The project
+ * @param user The user
+ * @returns true when user has access
+ */
+export async function checkAccess(project: Project, user: Nullable<User>): Promise<boolean> {
+	if(project.isPublic) {
+		return true;
+	} else if(!user) {
+		return false;
+	}
+
+	// Check if user is member of this project
+	const isMember = !!await database.projectMember.findFirst({
+		where: {
+			project: project,
+			member: user
+		}
+	});
+
+	if(isMember) {
+		return true;
+	}
+
+	// Check if user is member of a participating team
+	const isTeamMember = !!await database.projectTeam.findFirst({
+		where: {
+			project: project,
+			team: {
+				members: {
+					some: {
+						member: user
+					}
+				}
+			}
+		}
+	});
+
+	return isTeamMember;
 }

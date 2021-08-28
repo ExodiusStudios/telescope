@@ -3,7 +3,7 @@ import { InvalidArgumentError, MissingSessionError, NoPermissionError } from "..
 import { GraphQLResolvers } from "../../../http";
 import { Prisma } from "@prisma/client";
 import { database } from "../../..";
-import { fetchProjecOfCreator } from "../fetchers/project";
+import { fetchCreatorProject } from "../fetchers/project";
 import marked from "marked";
 
 export default {
@@ -67,7 +67,7 @@ export default {
 			throw new MissingSessionError();
 		}
 
-		const project = await fetchProjecOfCreator(id, ctx.user);
+		const project = await fetchCreatorProject(id, ctx.user);
 		const mutation: Prisma.ProjectUpdateInput = {};
 
 		if(!project) {

@@ -26,6 +26,13 @@ export default {
 			}
 		});
 	},
+	tasks: async (project) => {
+		return database.task.findMany({
+			where: { 
+				projectId: project.id
+			}
+		});
+	},
 	accessLevel: async (project, _argsa, ctx) => {
 		const user = ctx.user;
 

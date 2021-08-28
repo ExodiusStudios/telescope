@@ -93,6 +93,7 @@ type Task {
 	comments(skip: Int, take: Int): [Comment!]!
 	commentAmount: Int!
 	isWatching: Boolean!
+	isCompleted: Boolean!
 	parentTask: Task
 	childTasks: [Task!]!
 	childAmount: Int!
