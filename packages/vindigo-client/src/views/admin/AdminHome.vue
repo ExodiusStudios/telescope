@@ -35,20 +35,20 @@
 				</div>
 			</section>
 			<section class="mx-4 mt-4 grid grid-cols-12 gap-8">
-				<div class="dashboard__analytics p-4 col-span-9 rounded-sm dark:bg-gray-800">
+				<div class="dashboard__analytics p-4 col-span-9 rounded-sm bg-white border border-gray-300 dark:bg-gray-800">
 					Analytics
 				</div>
 				<div class="col-span-3">
-					<div class="w-full rounded-sm dark:bg-gray-800">
+					<div class="w-full rounded-sm bg-white border border-gray-300 dark:bg-gray-800">
 						<w-flex class="p-4">
 							Maintanance
 							<spacer />
 							<w-switch />
 						</w-flex>
 					</div>
-					<div class="rounded-sm mt-8 dark:bg-gray-800">
+					<div class="rounded-sm mt-8 bg-white border border-gray-300 dark:bg-gray-800">
 						<div class="p-4">
-							<div class="w-full p-4 dark:bg-green-500">
+							<div class="w-full p-4 bg-green-500 text-white">
 								You are running <b>Vindigo</b>
 								<br>
 								v1.0.0 
@@ -60,7 +60,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="rounded-sm mt-8 dark:bg-gray-800">
+					<div class="rounded-sm mt-8 bg-white border border-gray-300 dark:bg-gray-800">
 						<div class="p-4">
 							Active Users
 						</div>
