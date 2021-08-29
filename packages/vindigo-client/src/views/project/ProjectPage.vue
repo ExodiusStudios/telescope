@@ -223,7 +223,6 @@ export default Vue.extend({
 	}),
 
 	methods: {
-		// NOTE Invoked from creation menu
 		createTask() {
 
 		}

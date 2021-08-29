@@ -10173,11 +10173,6 @@ vizion@2.2.1:
     ini "^1.3.5"
     js-git "^0.7.8"
 
-vue-ellipse-progress@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/vue-ellipse-progress/-/vue-ellipse-progress-1.3.0.tgz#d9426ceacf575150be223843d81650a7cb39222b"
-  integrity sha512-3vdpaOaxRpVRG5Qne8Hjb4HG+P2fxCo6t3SqyQOznMsZApKPcIvTLEMfvJ1yd3R/0DYOjdPYxCDeReMD+UGyuA==
-
 vue-eslint-parser@^7.6.0:
   version "7.7.2"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.7.2.tgz#a723080b29c27fa0b3737bedceaeebe30fd0f359"

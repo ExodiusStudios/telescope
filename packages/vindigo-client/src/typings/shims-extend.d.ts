@@ -2,7 +2,7 @@
 import Vue from 'vue';
 import { Store } from 'vuex';
 import { ClientConfig } from '../model/config';
-import { RootState } from '../store/state';
+import { RootState } from '../registry/store/state';
 
 declare module 'vue/types/vue' {
 	interface Vue {

@@ -1,10 +1,10 @@
-import { api, routing, vue } from "..";
+import { api, routing, vue } from "../..";
 
 import { ActionTree } from "vuex";
-import { RootState } from "./state";
 import gql from "graphql-tag";
-import { personalFragment, profileFragment } from "../fragments";
-import { clientReadyTask } from "../util";
+import { personalFragment, profileFragment } from "../../fragments";
+import { clientReadyTask } from "../../util";
+import { RootState } from "../store";
 
 /**
  * Register store actions

@@ -4,6 +4,7 @@ import { isString, last } from "lodash";
 
 import { Optional } from "./typings/types";
 import { store } from ".";
+import { RoutingRegistry } from "./registry/routing";
 
 /**
  * The service in charge of managing routing 
@@ -32,24 +33,20 @@ export class RoutingService {
 	}
 
 	/**
-	 * Define a new route in the application.
+	 * Define the registry of available routes
 	 * 
-	 * @param config The config
+	 * @param registry The registry
 	 */
-	public defineRoute(config: RouteConfig & RequiredName) {
+	public submitRoutes(registry: RoutingRegistry) {
 		if(this.initialized) {
 			throw new Error('Router already configured');
 		}
 
-		const name = config.name;
-		
-		if(this.index[name]) {
-			throw new Error(`Route with name ${name} already registered`);
+		for(const route of registry.toArray()) {
+			this.index[route.name] = route;
+			this.options.routes!.push(route);
+			this.logger('Defined route ' + route.path);
 		}
-
-		this.index[name] = config;
-		this.options.routes!.push(config);
-		this.logger('Defined route ' + config.path);
 	}
 
 	/**

@@ -14,11 +14,8 @@ import Vue from 'vue';
 import WaveUI from 'wave-ui';
 import { buildThemeConfig } from './util';
 import dayjs from 'dayjs';
-import { registerComponents } from './registry/components';
-import { registerPlugins } from './registry/plugins';
-import { registerRoutes } from './registry/routes';
-import { registerState } from './store/state';
 import { patchRouterPush } from './helpers';
+import { completeRegistries } from './registry';
 
 dayjs.extend(RelativeTime);
 
@@ -40,10 +37,24 @@ patchRouterPush();
 
 // Register all core registries with
 // their initial data and state
-registerComponents();
-registerPlugins();
-registerRoutes();
-registerState();
+completeRegistries();
+
+// Provide a type safe store reference
+// since Vuex 3 does not yet support
+// specifying a state structure.
+Vue.mixin({
+	computed: {
+		$vuex() {
+			return store.instance;
+		},
+		$config() {
+			return store.instance.state.config;
+		},
+		$isDark() {
+			return store.instance.state.isDark;
+		}
+	}
+});
 
 // Load wave ui
 const waveui = new WaveUI({

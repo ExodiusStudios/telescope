@@ -1,5 +1,5 @@
 import { GetterTree } from "vuex";
-import { RootState } from "./state";
+import { RootState } from "../store";
 
 /**
  * Register store getters

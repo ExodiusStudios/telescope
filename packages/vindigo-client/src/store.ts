@@ -1,6 +1,5 @@
 import { ActionTree, GetterTree, MutationTree, Store } from 'vuex';
-
-import { RootState } from './store/state';
+import { RootState, StoreRegistry } from './registry/store';
 import { logger } from "./util";
 
 /**
@@ -16,21 +15,19 @@ export class StoreService {
 	private initialized = false;
 	
 	/**
-	 * Define a new route in the application.
+	 * Define the registry of available namespaces
 	 * 
 	 * @param config The config
 	 */
-	public defineNamespace<T>(state: StoreNamespace<T>) {
+	public submitNamespaces(registry: StoreRegistry) {
 		if(this.initialized) {
 			throw new Error('State already configured');
 		}
 
-		if(this.modules[state.id]) {
-			throw new Error(`State ${state.id} state already defined`);
+		for(const namespace of registry.toArray()) {
+			this.modules[namespace.id] = namespace;		
+			this.logger('Defined namespace ' + namespace.id);
 		}
-
-		this.modules[state.id] = state;		
-		this.logger('Defined namespace ' + state.id);
 	}
 
 	/**

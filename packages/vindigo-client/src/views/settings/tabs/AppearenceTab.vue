@@ -36,13 +36,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import languages from '../../../registry/languages';
 import { i18n } from '../../..';
+import { languages } from '../../../registry';
 
 export default Vue.extend({
 	name: 'AppearenceTab',
 	data: () => ({
-		languages: languages,
+		languages: languages.toArray(),
 	}),
 	computed: {
 		darkMode: {

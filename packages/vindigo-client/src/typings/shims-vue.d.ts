@@ -3,7 +3,6 @@ declare module '*.vue' {
 	export default Vue;
 }
 
-declare module 'vue-ellipse-progress';
 declare module 'vue2-transitions';
 declare module 'vuetrend';
 declare module 'wave-ui';

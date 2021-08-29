@@ -69,7 +69,7 @@ export default Vue.extend({
 	@apply bg-light-1 dark:bg-dark-1 h-screen fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center;
 
 	&__text {
-		@apply absolute text-lg left-0 top-36 right-0 text-center opacity-30 uppercase font-semibold dark:text-white;
+		@apply text-xl mt-2 text-center opacity-30 uppercase font-semibold dark:text-white;
 	}
 }
 </style>

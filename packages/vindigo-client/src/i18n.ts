@@ -1,20 +1,15 @@
 import { store, vue } from ".";
 
-import { Dictionary } from "vue-router/types/router";
 import VueI18n from "vue-i18n";
 import dayjs from "dayjs";
-import { keyBy } from "lodash";
-import languages from "./registry/languages";
 import { logger } from "./util";
+import { languages } from "./registry";
 
 /**
  * The service in charge of interface translations
  * and language loading.
  */
 export class I18nService {
-
-	public languageIndex: Dictionary<Language> = {};
-	public languageList: Language[] = [];
 
 	private logger = logger('I18n');
 	private options!: VueI18n.I18nOptions;
@@ -27,8 +22,6 @@ export class I18nService {
 	public initialize() {		
 		const initialLang = store.instance.state.language;
 		
-		this.languageList = languages;
-		this.languageIndex = keyBy(languages, (lang => lang.id));
 		this.options = {
 			locale: initialLang,
 			fallbackLocale: initialLang
@@ -68,7 +61,11 @@ export class I18nService {
 	}
 
 	private setI18nLanguage(lang: string) {
-		const language = this.languageIndex[lang];
+		const language = languages.get(lang);
+
+		if(!language) {
+			throw new Error(`Unknown language "${lang}"`);
+		}
 
 		document.documentElement.setAttribute('lang', lang);
 		store.instance.commit('setLanguage', lang);
@@ -77,7 +74,7 @@ export class I18nService {
 	}
 
 	private async fetchTranslations(lang: string) {
-		const language = this.languageIndex[lang];
+		const language = languages.get(lang);
 
 		if(!language) {
 			throw new Error(`Unknown language ${lang}`);
